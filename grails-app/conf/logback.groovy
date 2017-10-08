@@ -1,5 +1,6 @@
 import grails.util.BuildSettings
 import grails.util.Environment
+import lms2017b.Application
 import org.springframework.boot.logging.logback.ColorConverter
 import org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter
 
@@ -22,6 +23,18 @@ appender('STDOUT', ConsoleAppender) {
     }
 }
 
+//李晓平 20171007修订
+appender("FILE", FileAppender) {
+    //file = "/var/logs/@info.app.name@.log"    //这个已经不灵了
+    file = "/var/logs/${Application.package.name}.log"
+
+    append = true
+    encoder(PatternLayoutEncoder) {
+        pattern = "%level %logger - %msg%n"
+    }
+}
+
+
 def targetDir = BuildSettings.TARGET_DIR
 if (Environment.isDevelopmentMode() && targetDir != null) {
     appender("FULL_STACKTRACE", FileAppender) {
@@ -32,5 +45,7 @@ if (Environment.isDevelopmentMode() && targetDir != null) {
         }
     }
     logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)
+    root(ERROR, ['STDOUT', 'FULL_STACKTRACE', 'FILE'])
+} else {
+    root(ERROR, ['STDOUT', 'FILE'])
 }
-root(ERROR, ['STDOUT'])
