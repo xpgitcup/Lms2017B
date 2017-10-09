@@ -43,7 +43,7 @@
                 <td>
                     <g:uploadForm controller="operation4DataKeyA" action="importFromExcelFile">
                         <div class="nav">
-                            <g:hiddenField name="id" value="${item.id}"/>
+                            <g:hiddenField name="id" value="${item?.id}"/>
                             <ul>
                                 <li>
                                     <input type="file" name="uploadedFile">

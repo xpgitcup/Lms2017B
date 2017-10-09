@@ -3,8 +3,7 @@ package cn.edu.cup.os
 import cn.edu.cup.system.SystemLog
 import cn.edu.cup.system.SystemLogController
 import grails.converters.JSON
-import grails.transaction.Transactional
-import org.omg.CORBA.Environment
+import grails.gorm.transactions.Transactional
 
 @Transactional(readOnly = true)
 class Operation4SystemLogController extends SystemLogController {
@@ -38,6 +37,7 @@ class Operation4SystemLogController extends SystemLogController {
     * 删除超过某个时间的日志
     * */
 
+    @Transactional
     def deleteSystemLogOldThan() {
         println("${params}")
         Calendar rightNow = Calendar.getInstance();

@@ -105,7 +105,7 @@ class Operation4DataKeyAController extends DataKeyAController{
         if (request.xhr) {
             render(template: 'listDataKeyA', model: [dataKeyAList: dataKeyAList])
         } else {
-            respond dataKeyA
+            respond dataKeyAList
         }
     }
 
@@ -280,7 +280,7 @@ class Operation4DataKeyAController extends DataKeyAController{
         } else {
             data = DataKeyA.findAllByUpDataKeyIsNull(params)     //这是必须调整的
         }
-        println("${data} ${dataDictionary}")
+        //println("${data} ${dataDictionary}")
         params.context = "dataTag"
         params.subItems = "subDataKeys"
         params.attributes = "id"    //

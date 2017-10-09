@@ -74,6 +74,21 @@
                             <td>
                             </td>
                         </g:if>
+                    <!--针对普通类型的多行文本-->
+                        <g:if test="${subItem.dataKeyA.dataKeyType == cn.edu.cup.dictionary.DataKeyType.dataKeyText}">
+                            <td>
+                                <ul>
+                                    <li>
+                                        ${subItem.dataKeyA.appendParameter}
+                                    </li>
+                                    <li>
+                                        <g:textArea name="subDataItems[${i}].dataValue" id="dataValue_${i}"/>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>
+                            </td>
+                        </g:if>
                     <!--针对时间日期类型的-->
                         <g:if test="${subItem.dataKeyA.dataKeyType == cn.edu.cup.dictionary.DataKeyType.dataKeyDate}">
                             <td>
