@@ -137,12 +137,9 @@ class Operation4DataKeyAController extends DataKeyAController{
     def createDataKeyA(DataKeyA dataKeyA) {
         def newDataKeyA = new DataKeyA(upDataKey: dataKeyA)
         //处理所属字典
-        def dataDictionary
         if (session.currentDataDictionary) {
             newDataKeyA.dictionary = session.currentDataDictionary
         }
-
-        session.currentDataKeyA = newDataKeyA
 
         if (request.xhr) {
             render(template: 'createDataKeyA', model: [dataKeyA: newDataKeyA])
