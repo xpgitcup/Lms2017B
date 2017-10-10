@@ -2,6 +2,7 @@ package cn.edu.cup.common
 
 import cn.edu.cup.dictionary.DataItemA
 import cn.edu.cup.dictionary.DataKeyA
+import cn.edu.cup.dictionary.DataKeyType
 import grails.gorm.transactions.Transactional
 import groovy.json.JsonBuilder
 import jxl.Cell
@@ -25,10 +26,6 @@ class ExcelService {
         try {
             //  打开文件
             File file = new File(fileName)
-            if (!file.exists()) {
-                println("创建新文件...")
-                file.createNewFile()
-            }
 
             WritableWorkbook book = Workbook.createWorkbook(file);
             //  生成名为“第一页”的工作表，参数0表示这是第一页
@@ -80,37 +77,56 @@ class ExcelService {
     private int createCell4Field(DataKeyA e, int colIndex, Sheet sheet) {
         Label labelUnit
         Label label
+        Label description
 
         label = new Label(colIndex, 0, e.dataTag)
-        labelUnit = new Label(colIndex, 1, e.dataUnit)
+        labelUnit = new Label(colIndex, 2, e.dataUnit)
+
+        switch (e.dataKeyType) {
+            case DataKeyType.dataKeyNormal:
+                description = new Label(colIndex, 1, "普通数据")
+                break;
+            case DataKeyType.dataKeyText:
+                description = new Label(colIndex, 1, "多行数据")
+                break;
+            case DataKeyType.dataKeyDate:
+                description = new Label(colIndex, 1, "日期")
+                break;
+            case DataKeyType.dataKeyDateTime:
+                description = new Label(colIndex, 1, "日期+时间")
+                break;
+            case DataKeyType.dataKeyEnum:
+                description = new Label(colIndex, 1, "枚举数据,请选择")
+                labelUnit = new Label(colIndex, 2, "${e.dataUnit}/${e.appendParameter}")
+                break;
+            case DataKeyType.dataKeyFile:
+                description = new Label(colIndex, 1, "文件--提供文件名")
+                break;
+            case DataKeyType.dataKeyRef:
+                description = new Label(colIndex, 1, "引用数据--被引用的关键字ID")
+                labelUnit = new Label(colIndex, 2, "${e.dataUnit}/${e.appendParameter}")
+                break;
+        }
+
+        sheet.addCell(description)
         sheet.addCell(label)
         sheet.addCell(labelUnit)
 
-        if (e.refDataModel) {
-            labelUnit = new Label(colIndex, 1, "{ref: ${e.refDataModel.id}}")
-            sheet.addCell(labelUnit)
-        }
-
-        if (e.isEnumeration) {
-            labelUnit = new Label(colIndex, 1, "{${e.appendParameter}}")
-            sheet.addCell(labelUnit)
-        }
-
-        if (e.dimension > 1) {
+        if (e.columnNumber > 1) {
             //println("处理附加信息：${e.appendParameter}")
             if (e.appendParameter) {
                 def ss = e.appendParameter.split(",")
                 for (int i=0; i<ss.size(); i++) {
-                    labelUnit = new Label(colIndex + i, 1, "{${ss[i]}}")
+                    labelUnit = new Label(colIndex + i, 2, "{${ss[i]}}")
                     sheet.addCell(labelUnit)
                 }
             }
             else {
-                labelUnit = new Label(colIndex, 1, "超过一维的数据，需要设置附加属性")
+                labelUnit = new Label(colIndex, 2, "超过一维的数据，需要设置附加属性")
                 sheet.addCell(labelUnit)
             }
         }
-        colIndex += e.dimension
+        colIndex += e.columnNumber
         return colIndex
     }
 
