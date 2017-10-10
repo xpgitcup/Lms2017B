@@ -319,7 +319,7 @@ th {
 
 @font-face {
     font-family: 'Glyphicons Halflings';
-//修改了路径 lxp 20171010
+/*修改了路径 lxp 20171010*/
 src: url('bootstrap/fonts/glyphicons-halflings-regular.eot');
     src: url('bootstrap/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('bootstrap/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('bootstrap/fonts/glyphicons-halflings-regular.woff') format('woff'), url('bootstrap/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('bootstrap/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
