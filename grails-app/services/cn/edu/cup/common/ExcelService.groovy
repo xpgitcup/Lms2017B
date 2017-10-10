@@ -25,6 +25,11 @@ class ExcelService {
         try {
             //  打开文件
             File file = new File(fileName)
+            if (!file.exists()) {
+                println("创建新文件...")
+                file.createNewFile()
+            }
+
             WritableWorkbook book = Workbook.createWorkbook(file);
             //  生成名为“第一页”的工作表，参数0表示这是第一页
             WritableSheet sheet = book.createSheet("${dataKeyA.dataTag}", 0);
@@ -42,7 +47,7 @@ class ExcelService {
             if (dataKeyA.isDataModel()) {
                 //先处理继承的问题
                 def ms = dataKeyA.superKeys()
-                println("${ms}")
+                println("处理数据字典的 ${ms}")
                 ms.each { me ->
                     me.subDataKeys.each() { it ->
                         if (!it.isDataModel()) {

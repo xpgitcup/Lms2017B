@@ -58,7 +58,7 @@ class Operation4DataKeyAController extends DataKeyAController{
     * 下载模板
     * */
     def downloadTemplate(DataKeyA dataKeyA) {
-        def path = servletContext.getRealPath("/") + "templates"
+        def path = servletContext.getRealPath("/") + "dictionary/templates"
         //def fileName = dataKeyA.createTemplate(path)
         def fileName = excelService.createTemplate(dataKeyA, path)
         params.downLoadFileName = fileName
