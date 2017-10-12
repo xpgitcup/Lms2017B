@@ -76,7 +76,7 @@ class DataKeyA {
         superKeys().each {e->
             h.add(getHeads(e))
         }
-        h.add(getHeads(this))
+        h.addAll(getHeads(this))
         return h
     }
 
@@ -85,7 +85,29 @@ class DataKeyA {
         subDataKeys.each {e ->
             def c = []
             c.add(e.dataTag)
-            c.add(e.appendParameter)
+            switch (e.dataKeyType) {
+                case DataKeyType.dataKeyNormal:
+                    c.add("普通数据")
+                    break;
+                case DataKeyType.dataKeyText:
+                    c.add("普通数据")
+                    break;
+                case DataKeyType.dataKeyDate:
+                    c.add("日期")
+                    break;
+                case DataKeyType.dataKeyDateTime:
+                    c.add("日期时间")
+                    break;
+                case DataKeyType.dataKeyEnum:
+                    c.add("枚举数据，请选择：${e.appendParameter}")
+                    break;
+                case DataKeyType.dataKeyFile:
+                    c.add("文件")
+                    break;
+                case DataKeyType.dataKeyRef:
+                    c.add("引用：${e.appendParameter}")
+                    break;
+            }
             c.add(e.dataUnit)
             h.add(c)
         }

@@ -32,6 +32,14 @@ function tabAndPage4DataKeyA() {
 }
 
 /*
+* 显示标题
+* */
+function showHeads(id) {
+    operation4DataADiv.tabs("select", "数据表头");
+    ajaxRun("operation4DataKeyA/showHeads", id, "showHeadsDiv");
+}
+
+/*
 * 准备导入
 * */
 function prepareImportDataKeyA(id) {

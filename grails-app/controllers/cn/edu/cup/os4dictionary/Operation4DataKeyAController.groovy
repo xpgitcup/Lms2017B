@@ -18,6 +18,19 @@ class Operation4DataKeyAController extends DataKeyAController{
     def excelService
 
     /*
+    * 显示数据关键字的表头
+    * */
+    def showHeads(DataKeyA dataKeyA) {
+        def model = [heads: dataKeyA.heads()]
+        println("${dataKeyA.heads()}")
+        if (request.xhr) {
+            render(template: "showHeads", model: model)
+        } else {
+            model
+        }
+    }
+
+    /*
     * 选择当前关键字
     * */
     def selectCurrentDataKeyA(DataKeyA dataKeyA) {

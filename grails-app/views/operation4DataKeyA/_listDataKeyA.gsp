@@ -36,7 +36,7 @@
                 </td>
                 <td>
                     <a href="operation4DataKeyA/downloadTemplate/${item.id}">下载模板</a>
-                    <a href="operation4DataKeyA/showHeads/${item.id}">下载模板</a>
+                    <a href="javascript: showHeads(${item.id})">显示标题</a>
                 </td>
                 <td>
                     <a href="javascript: createDataItemA(${item.id})">输入${item.dataTag}</a>

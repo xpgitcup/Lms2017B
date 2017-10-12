@@ -104,6 +104,10 @@
     <div title="数据编辑">
         <div id="editDataItemADiv"></div>
     </div>
+
+    <div title="数据表头">
+        <div id="showHeadsDiv"></div>
+    </div>
 </div>
 </body>
 </html>
