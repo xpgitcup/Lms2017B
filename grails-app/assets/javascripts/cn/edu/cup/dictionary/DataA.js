@@ -19,6 +19,7 @@ $(function () {
             console.info("选择标签：" + title + "---" + index);
             switch (title) {
                 case "数据编辑":
+                case "数据表头":
                     break;
                 default:
                     $.cookie("currentTabDataADiv", title, {path: '/'});
