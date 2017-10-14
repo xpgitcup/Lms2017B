@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : sample
-Source Server Version : 50620
+Source Server Version : 50716
 Source Host           : localhost:3306
 Source Database       : lms2017dba
 
 Target Server Type    : MYSQL
-Target Server Version : 50620
+Target Server Version : 50716
 File Encoding         : 65001
 
-Date: 2017-10-10 11:20:40
+Date: 2017-10-14 18:04:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,7 +35,7 @@ CREATE TABLE `data_keya` (
   KEY `FK9l4diqnlwnipgyqxai15oq3k6` (`dictionary_id`),
   CONSTRAINT `FK9l4diqnlwnipgyqxai15oq3k6` FOREIGN KEY (`dictionary_id`) REFERENCES `data_dictionary` (`id`),
   CONSTRAINT `FKokoa47yvmx079u6sq1lu4dq9y` FOREIGN KEY (`up_data_key_id`) REFERENCES `data_keya` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of data_keya
@@ -63,3 +63,13 @@ INSERT INTO `data_keya` VALUES ('20', '0', '17', 'dataKeyText', '1', '无量纲'
 INSERT INTO `data_keya` VALUES ('21', '0', '17', 'dataKeyText', '1', '无量纲', ',', null, '下周计划', '1', '0');
 INSERT INTO `data_keya` VALUES ('22', '0', '17', 'dataKeyText', '1', '无量纲', ',', null, '本周总结', '1', '0');
 INSERT INTO `data_keya` VALUES ('23', '0', '17', 'dataKeyFile', '1', '无量纲', ',', null, '支撑文档', '1', '0');
+INSERT INTO `data_keya` VALUES ('24', '0', null, 'dataKeyNormal', '1', '无量纲', ',', null, '测试性项目', '2', '0');
+INSERT INTO `data_keya` VALUES ('25', '0', '24', 'dataKeyNormal', '1', '无量纲', ',', null, '普通数据1列', '2', '0');
+INSERT INTO `data_keya` VALUES ('26', '0', '24', 'dataKeyNormal', '2', '无量纲', ',', '第一列,第二列', '普通数据多列', '2', '0');
+INSERT INTO `data_keya` VALUES ('27', '0', '24', 'dataKeyText', '1', '无量纲', ',', null, '多行数据1列', '2', '0');
+INSERT INTO `data_keya` VALUES ('28', '0', '24', 'dataKeyText', '2', '无量纲', ',', null, '多行数据多列', '2', '0');
+INSERT INTO `data_keya` VALUES ('29', '0', '24', 'dataKeyDate', '1', '无量纲', ',', null, '日期', '2', '0');
+INSERT INTO `data_keya` VALUES ('30', '0', '24', 'dataKeyDateTime', '1', '无量纲', ',', null, '日期时间', '2', '0');
+INSERT INTO `data_keya` VALUES ('31', '0', '24', 'dataKeyEnum', '1', '无量纲', ',', '枚举值1,枚举值2', '枚举类型', '2', '0');
+INSERT INTO `data_keya` VALUES ('32', '0', '24', 'dataKeyFile', '1', '无量纲', ',', null, '文件', '2', '0');
+INSERT INTO `data_keya` VALUES ('33', '0', '24', 'dataKeyRef', '1', '无量纲', ',', '24', '引用', '2', '0');
