@@ -1,18 +1,10 @@
 package cn.edu.cup.dictionary
 
-import grails.gorm.services.Service
+import grails.gorm.transactions.Transactional
+import org.springframework.stereotype.Service
 
-@Service(DataKeyA)
-interface DataKeyAService {
-
-    DataKeyA get(Serializable id)
-
-    List<DataKeyA> list(Map args)
-
-    Long count()
-
-    void delete(Serializable id)
-
-    DataKeyA save(DataKeyA dataKeyA)
+@Transactional
+@grails.gorm.services.Service(DataKeyA)
+abstract class DataKeyAService implements IDataKeyAService {
 
 }

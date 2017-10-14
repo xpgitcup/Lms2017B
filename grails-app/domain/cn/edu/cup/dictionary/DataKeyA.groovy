@@ -13,9 +13,9 @@ class DataKeyA {
     String appendParameter = ''     //附加参数
     DataKeyType dataKeyType = DataKeyType.dataKeyNormal     //数据关键字类型
     String columnSeperator = ","   //列分割副
-    int columnNumber = 1          //列数
+    int columnNumber = 1           //列数
 
-    int orderNumber = 0         //顺序
+    int orderNumber = 0            //顺序
 
     DataKeyA upDataKey
 
