@@ -175,41 +175,4 @@ class DataKeyA {
         return this.subDataKeys.size() > 0
     }
 
-
-    /*
-    * 导入数据
-    * */
-
-    def importFromExcelFile(File sf) {
-
-        def message = []
-
-        try {
-            //  打开文件
-            Workbook book = Workbook.getWorkbook(sf);
-            //  首先查找对应的sheet
-            Sheet sheet = book.getSheet("${this.dataTag}")
-
-            if (sheet) {
-                importDataFromSheet(sheet, message)
-            } else {
-                message.add("找不到对应的[${this.dataTag}]sheet.")
-            }
-            book.close();
-
-        } catch (Exception e) {
-            println "exportExcelFile error: ${e}";
-        }
-        return message
-    }
-
-    /*
-    * 从sheet中导入数据
-    * */
-
-    def importDataFromSheet(sheet, message) {
-        def dataItem = new DataItemA(dataKeyA: this)
-        dataItem.save(true)
-    }
-
 }
