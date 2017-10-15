@@ -69,12 +69,38 @@ class DataKeyA {
     }
 
     /*
+    * 数据字段
+    * */
+    def realSubDataKeys() {
+        def h = []
+        def s = superKeys()
+        println("上级关键字：${s}")
+        s.each {e->
+            h.addAll(getRealSubDataKeys(e))
+        }
+        h.addAll(getRealSubDataKeys(this))
+        return h
+    }
+
+    private getRealSubDataKeys(DataKeyA dataKeyA) {
+        def h = []
+        dataKeyA.subDataKeys.each {e ->
+            if (!e.isDataModel()) {
+                h.add(e)
+            }
+        }
+        return h
+    }
+
+    /*
     * 数据标题
     * */
     def heads() {
         def h = []
-        superKeys().each {e->
-            h.add(getHeads(e))
+        def s = superKeys()
+        println("上级关键字：${s}")
+        s.each {e->
+            h.addAll(getHeads(e))
         }
         h.addAll(getHeads(this))
         return h
@@ -82,42 +108,44 @@ class DataKeyA {
 
     private getHeads(DataKeyA dataKeyA) {
         def h = []
-        subDataKeys.each {e ->
+        dataKeyA.subDataKeys.each {e ->
             def c = []
-            c.add(e.dataTag)
-            switch (e.dataKeyType) {
-                case DataKeyType.dataKeyNormal:
-                    if (e.appendParameter) {
-                        c.add("${e.appendParameter}")
-                    } else {
-                        c.add("")
-                    }
-                    break;
-                case DataKeyType.dataKeyText:
-                    if (e.appendParameter) {
-                        c.add("${e.appendParameter}")
-                    } else {
-                        c.add("")
-                    }
-                    break;
-                case DataKeyType.dataKeyDate:
-                    c.add("日期")
-                    break;
-                case DataKeyType.dataKeyDateTime:
-                    c.add("日期时间")
-                    break;
-                case DataKeyType.dataKeyEnum:
-                    c.add("枚举：${e.appendParameter}")
-                    break;
-                case DataKeyType.dataKeyFile:
-                    c.add("文件")
-                    break;
-                case DataKeyType.dataKeyRef:
-                    c.add("key=${e.appendParameter}")
-                    break;
+            if (!e.isDataModel()) {
+                c.add(e.dataTag)
+                switch (e.dataKeyType) {
+                    case DataKeyType.dataKeyNormal:
+                        if (e.appendParameter) {
+                            c.add("${e.appendParameter}")
+                        } else {
+                            c.add("")
+                        }
+                        break;
+                    case DataKeyType.dataKeyText:
+                        if (e.appendParameter) {
+                            c.add("${e.appendParameter}")
+                        } else {
+                            c.add("")
+                        }
+                        break;
+                    case DataKeyType.dataKeyDate:
+                        c.add("日期")
+                        break;
+                    case DataKeyType.dataKeyDateTime:
+                        c.add("日期时间")
+                        break;
+                    case DataKeyType.dataKeyEnum:
+                        c.add("枚举：${e.appendParameter}")
+                        break;
+                    case DataKeyType.dataKeyFile:
+                        c.add("文件")
+                        break;
+                    case DataKeyType.dataKeyRef:
+                        c.add("key=${e.appendParameter}")
+                        break;
+                }
+                c.add(e.dataUnit)
+                h.add(c)
             }
-            c.add(e.dataUnit)
-            h.add(c)
         }
         return h
     }
@@ -138,7 +166,7 @@ class DataKeyA {
         def p = upDataKey
         while (p) {
             s.add(p)
-            p = p.upDataKey
+            p = p?.upDataKey
         }
         return s.reverse()
     }

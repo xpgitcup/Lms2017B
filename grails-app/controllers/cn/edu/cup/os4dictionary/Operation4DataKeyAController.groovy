@@ -23,7 +23,7 @@ class Operation4DataKeyAController extends DataKeyAController{
     * */
     def showHeads(DataKeyA dataKeyA) {
         def model = [heads: dataKeyA.heads()]
-        println("${dataKeyA.heads()}")
+        //println("${dataKeyA.heads()}")
         if (request.xhr) {
             render(template: "showHeads", model: model)
         } else {

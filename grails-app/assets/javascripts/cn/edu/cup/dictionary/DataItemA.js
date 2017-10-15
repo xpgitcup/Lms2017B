@@ -9,7 +9,7 @@ function tabAndPage4DataItemA() {
 
     //获取当前页
     var currentPgaeDataItemA = readCookie("currentPgaeDataItemA", 1);
-    var pageSizeDataItemA = readCookie("pageSizeDataItemA", pageSize);
+    var pageSizeDataItemA = readCookie("pageSizeDataItemA", 5);
     var totalDataItemA = countDataItemA();
     //console.info("记录总数：" + totalDataItemA);
 

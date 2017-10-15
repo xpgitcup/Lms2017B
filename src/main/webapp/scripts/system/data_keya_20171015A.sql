@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : sample
-Source Server Version : 50620
+Source Server Version : 50716
 Source Host           : localhost:3306
 Source Database       : lms2017dba
 
 Target Server Type    : MYSQL
-Target Server Version : 50620
+Target Server Version : 50716
 File Encoding         : 65001
 
-Date: 2017-10-15 11:19:55
+Date: 2017-10-15 22:12:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -35,7 +35,7 @@ CREATE TABLE `data_keya` (
   KEY `FK9l4diqnlwnipgyqxai15oq3k6` (`dictionary_id`),
   CONSTRAINT `FK9l4diqnlwnipgyqxai15oq3k6` FOREIGN KEY (`dictionary_id`) REFERENCES `data_dictionary` (`id`),
   CONSTRAINT `FKokoa47yvmx079u6sq1lu4dq9y` FOREIGN KEY (`up_data_key_id`) REFERENCES `data_keya` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of data_keya
@@ -73,3 +73,4 @@ INSERT INTO `data_keya` VALUES ('30', '0', '24', 'dataKeyDateTime', '1', '无量
 INSERT INTO `data_keya` VALUES ('31', '0', '24', 'dataKeyEnum', '1', '无量纲', ',', '枚举值1,枚举值2', '枚举类型', '2', '0');
 INSERT INTO `data_keya` VALUES ('32', '0', '24', 'dataKeyFile', '1', '无量纲', ',', null, '文件', '2', '0');
 INSERT INTO `data_keya` VALUES ('33', '0', '24', 'dataKeyRef', '1', '无量纲', ',', '24', '引用', '2', '0');
+INSERT INTO `data_keya` VALUES ('34', '0', '33', 'dataKeyNormal', '1', '无量纲', ',', null, '继承自引用', '2', '0');

@@ -64,14 +64,12 @@ class Operation4DataItemAController {
 
     def createDataItemA(DataKeyA dataKeyA) {
         def newDataItemA = new DataItemA(dataKeyA: dataKeyA)
-        if (dataKeyA.subDataKeys) {
-            def newSubItems = []
-            dataKeyA.subDataKeys.each { e ->
-                def subItem = new DataItemA(dataKeyA: e, upDataItem: newDataItemA)
-                newSubItems.add(subItem)
-            }
-            newDataItemA.subDataItems = newSubItems
+        def newSubItems = []
+        dataKeyA.realSubDataKeys().each { e ->
+            def subItem = new DataItemA(dataKeyA: e, upDataItem: newDataItemA)
+            newSubItems.add(subItem)
         }
+        newDataItemA.subDataItems = newSubItems
         if (request.xhr) {
             render(template: 'createDataItemA', model: [dataItemA: newDataItemA])
         } else {

@@ -114,7 +114,7 @@ class DataService {
             def dataItemA = new DataItemA(dataKeyA: dataKeyA)
             def newItems = []
             int r = 3
-            dataKeyA.subDataKeys.eachWithIndex{ DataKeyA entry, int i ->
+            dataKeyA.realSubDataKeys().eachWithIndex{ DataKeyA entry, int i ->
                 def cell = sheet.getCell(i, r)
                 def item = new DataItemA(upDataItem: dataItemA, dataKeyA: entry, dataValue: cell.contents)
                 newItems.add(item)
