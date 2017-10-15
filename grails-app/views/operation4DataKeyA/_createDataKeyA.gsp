@@ -52,7 +52,7 @@
                         <input type="button" value="输入" onclick="updateAppendForm4DataKeyA()">
                     </li>
                     <li>
-                        <g:select name="dataKeyList" optionKey="id" noSelection="${['null':'Select One...']}"
+                        <g:select name="dataKeyList" optionKey="id" noSelection="${['null': 'Select One...']}"
                                   from="${cn.edu.cup.dictionary.DataKeyA.findAllByDictionaryAndSubDataKeysIsNotEmpty(session.currentDataDictionary)}"
                                   onchange="onchangeDataKeyList(this.form)"/>
 

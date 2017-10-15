@@ -65,26 +65,14 @@ function tabAndPage4DataKeyA() {
 function formCheck(form) {
     console.info("有效性检验...")
     console.info(form.dataKeyType.value);
+    if ((parseInt(form.columnNumber.value)>1) && (form.appendParameter.value == '')) {
+        alert("请输入数据列标题：");
+        form.appendText.focus();
+        return false
+    } else {
+        return true
+    }
     switch (form.dataKeyType.value) {
-        case "dataKeyNormal":
-            if ((parseInt(form.columnNumber.value)>1) && (form.appendParameter.value == '')) {
-                alert("请输入数据列标题：");
-                form.appendText.focus();
-                return false
-            } else {
-                return true
-            }
-            break;
-        case "dataKeyEnum":
-            console.info("枚举类型...");
-            if (form.appendParameter.value == '') {
-                alert("请输入枚举类型的具体值：");
-                form.appendText.focus();
-                return false
-            } else {
-                return true
-            }
-            break;
         case "dataKeyRef":
             if (form.appendParameter.value == '') {
                 alert("请选择关键字：");

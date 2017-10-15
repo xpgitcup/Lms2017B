@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50620
 File Encoding         : 65001
 
-Date: 2017-10-10 11:20:59
+Date: 2017-10-15 10:42:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,9 +24,10 @@ CREATE TABLE `data_dictionary` (
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_l5g8lh0qa5u6chm6abv12myyu` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of data_dictionary
 -- ----------------------------
 INSERT INTO `data_dictionary` VALUES ('1', '0', '实验室管理');
+INSERT INTO `data_dictionary` VALUES ('2', '0', '测试性字典');

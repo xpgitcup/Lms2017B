@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : sample
-Source Server Version : 50716
+Source Server Version : 50620
 Source Host           : localhost:3306
 Source Database       : lms2017dba
 
 Target Server Type    : MYSQL
-Target Server Version : 50716
+Target Server Version : 50620
 File Encoding         : 65001
 
-Date: 2017-10-14 18:04:53
+Date: 2017-10-15 11:19:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -67,7 +67,7 @@ INSERT INTO `data_keya` VALUES ('24', '0', null, 'dataKeyNormal', '1', '无量�
 INSERT INTO `data_keya` VALUES ('25', '0', '24', 'dataKeyNormal', '1', '无量纲', ',', null, '普通数据1列', '2', '0');
 INSERT INTO `data_keya` VALUES ('26', '0', '24', 'dataKeyNormal', '2', '无量纲', ',', '第一列,第二列', '普通数据多列', '2', '0');
 INSERT INTO `data_keya` VALUES ('27', '0', '24', 'dataKeyText', '1', '无量纲', ',', null, '多行数据1列', '2', '0');
-INSERT INTO `data_keya` VALUES ('28', '0', '24', 'dataKeyText', '2', '无量纲', ',', null, '多行数据多列', '2', '0');
+INSERT INTO `data_keya` VALUES ('28', '1', '24', 'dataKeyText', '2', '无量纲', ',', '第一,第二,第三', '多行数据多列', '2', '0');
 INSERT INTO `data_keya` VALUES ('29', '0', '24', 'dataKeyDate', '1', '无量纲', ',', null, '日期', '2', '0');
 INSERT INTO `data_keya` VALUES ('30', '0', '24', 'dataKeyDateTime', '1', '无量纲', ',', null, '日期时间', '2', '0');
 INSERT INTO `data_keya` VALUES ('31', '0', '24', 'dataKeyEnum', '1', '无量纲', ',', '枚举值1,枚举值2', '枚举类型', '2', '0');

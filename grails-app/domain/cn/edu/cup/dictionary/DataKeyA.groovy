@@ -87,10 +87,18 @@ class DataKeyA {
             c.add(e.dataTag)
             switch (e.dataKeyType) {
                 case DataKeyType.dataKeyNormal:
-                    c.add("普通数据")
+                    if (e.appendParameter) {
+                        c.add("${e.appendParameter}")
+                    } else {
+                        c.add("")
+                    }
                     break;
                 case DataKeyType.dataKeyText:
-                    c.add("普通数据")
+                    if (e.appendParameter) {
+                        c.add("${e.appendParameter}")
+                    } else {
+                        c.add("")
+                    }
                     break;
                 case DataKeyType.dataKeyDate:
                     c.add("日期")
@@ -99,13 +107,13 @@ class DataKeyA {
                     c.add("日期时间")
                     break;
                 case DataKeyType.dataKeyEnum:
-                    c.add("枚举数据，请选择：${e.appendParameter}")
+                    c.add("枚举：${e.appendParameter}")
                     break;
                 case DataKeyType.dataKeyFile:
                     c.add("文件")
                     break;
                 case DataKeyType.dataKeyRef:
-                    c.add("引用：${e.appendParameter}")
+                    c.add("key=${e.appendParameter}")
                     break;
             }
             c.add(e.dataUnit)
