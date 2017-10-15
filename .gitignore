@@ -10,3 +10,5 @@ build/
 .settings
 .classpath
 /src/main/webapp/dictionary/
+/src/main/webapp/temp/
+/src/main/webapp/uploads/

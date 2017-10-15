@@ -33,11 +33,20 @@
     <!--JS加载-->
     <asset:javascript src="jquery-2.2.0.min.js"/>
 
+    <!--jquery ui-->
+    <asset:javascript src="jquery-ui/jquery-ui.min.js.js"/>
+    <asset:stylesheet src="jquery-ui/jquery-ui.min.css"/>
+
+    <!--jquery datetimepicker-->
+    <asset:javascript src="jquery-ui-datetimepicker/jquery.datetimepicker.full.min.js"/>
+    <asset:stylesheet src="jquery-ui-datetimepicker/jquery.datetimepicker.css"/>
+
     <asset:javascript src="easyui/jquery.easyui.min.js"/>
 
     <asset:javascript src="bootstrap.js"/>
     <asset:javascript src="bootstrap-treeview/bootstrap-treeview.min.js"/>
     <asset:javascript src="jquery/jquery.cookie.js"/>
+
     <!--引入jqpagination-->
     <!--asset:javascript src="jqpagination/jquery.jqpagination.min.js"/-->
 

@@ -97,7 +97,8 @@
                                 <!--g:datePicker name="subDataItems[${i}].dataValue" id="dataValue_${i}"
                                                   dateFmt="yyyy-MM-dd"
                                                   value="${new Date()}"/-->
-                                <input type="date" name="subDataItems[${i}].dataValue" id="dataValue_${i}" value="${new java.util.Date()}"/>
+                                <!--input type="text" name="subDataItems[${i}].dataValue" id="dataValue_${i}" value="${new java.util.Date()}" class="datePicker"/-->
+                                <input type="text" name="subDataItems[${i}].dataValue" id="dataValue_${i}" class="datePicker"/>
                             </td>
                             <td>
                             </td>
@@ -110,7 +111,8 @@
                                 <!--g:datePicker name="subDataItems[${i}].dataValue" id="dataValue_${i}"
                                                   dateFmt="yyyy-MM-dd"
                                                   value="${new Date()}"/-->
-                                <input type="datetime-local" name="subDataItems[${i}].dataValue" id="dataValue_${i}" value="${new java.util.Date()}"/>
+                                <!--input type="text" name="subDataItems[${i}].dataValue" id="dataValue_${i}" value="${new java.util.Date()}" class="dateTimePicker"/-->
+                                <input type="text" name="subDataItems[${i}].dataValue" id="dataValue_${i}" class="dateTimePicker"/>
                             </td>
                             <td>
                             </td>
@@ -163,14 +165,16 @@
 <!--/g:form-->
 </div>
 <g:javascript>
-    $("input.datePicker").datepicker({
-        showButtonPanel: true,
-        dateFormat: "yy-mm-dd",
-        defaultDate: 0
+    $("input.datePicker").datetimepicker({
+        timepicker: false,
+        format: 'Y/m/d',
+        mask: true
+        //defaultDate: true
     });
 
     $("input.dateTimePicker").datetimepicker({
-        format: 'Y-m-d H:i',
+        format: 'Y/m/d H:i',
+        mask: true,
         defaultDate: new Date()
     });
 </g:javascript>
