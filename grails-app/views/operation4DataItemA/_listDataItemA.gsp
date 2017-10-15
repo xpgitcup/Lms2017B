@@ -27,7 +27,12 @@
                     </tr>
                     <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                         <g:each in="${item.subDataItems}" var="e" status="j">
-                            <td>${e.dataKeyA.dataTag}=${e.dataValue}</td>
+                            <td>${e.dataKeyA.dataTag}</td>
+                        </g:each>
+                    </tr>
+                    <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+                        <g:each in="${item.subDataItems}" var="e" status="j">
+                            <td>${e.dataValue}</td>
                         </g:each>
                     </tr>
                 </g:each>
