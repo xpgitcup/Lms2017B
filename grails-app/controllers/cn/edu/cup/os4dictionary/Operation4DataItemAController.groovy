@@ -10,6 +10,17 @@ import static org.springframework.http.HttpStatus.CREATED
 class Operation4DataItemAController {
 
     def commonService
+    def dataService
+
+    /*
+    * 数据导出到Excel文件
+    * */
+    def exportToExcelFile(DataItemA dataItemA) {
+        def path = servletContext.getRealPath("/") + "temp"
+        def filename = dataService.exportToExcelFile(dataItemA, path)
+        params.downLoadFileName = filename
+        commonService.downLoadFile(params)
+    }
 
     /*
     * 统计记录个数

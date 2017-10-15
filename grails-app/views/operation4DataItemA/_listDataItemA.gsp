@@ -18,15 +18,26 @@
             <g:if test="${flash.message}">
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
-            <f:table collection="${dataItemAList}" />
+            <!--f:table collection="${dataItemAList}" /-->
             <table>
                 <thead>
-                <th></th>
+                <th>数据项</th>
+                <th>操作</th>
                 </thead>
                 <tbody>
-                <tr>
-
-                </tr>
+                <g:each var="item" status="i" in="${dataItemAList}">
+                    <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+                        <td>${item.dataKeyA.dataTag}</td>
+                        <td>
+                            <a href="operation4DataItemA/exportToExcelFile/${item.id}">导出</a>
+                        </td>
+                    </tr>
+                    <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+                        <g:each in="${item.subDataItems}" var="e" status="j">
+                            <td>${e.dataKeyA.dataTag}=${e.dataValue}</td>
+                        </g:each>
+                    </tr>
+                </g:each>
                 </tbody>
             </table>
         </div>

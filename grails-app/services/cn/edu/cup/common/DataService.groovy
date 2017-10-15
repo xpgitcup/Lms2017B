@@ -61,7 +61,7 @@ class DataService {
     * */
 
     def exportToExcelFile(DataItemA dataItemA, String path) {
-        def fileName = "${path}/${dataItemA.dataKeyA.dataTag}_${dataItemA.dataKeyA.id}_data.xls"
+        def fileName = "${path}/${dataItemA.dataKeyA.dataTag}_${dataItemA.dataKeyA.id}_${dataItemA.id}_data.xls"
 
         try {
             //  打开文件

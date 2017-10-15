@@ -162,5 +162,18 @@
     </g:uploadForm>
 <!--/g:form-->
 </div>
+<g:javascript>
+    $("input.datePicker").datepicker({
+        showButtonPanel: true,
+        dateFormat: "yy-mm-dd",
+        defaultDate: 0
+    });
+
+    $("input.dateTimePicker").datetimepicker({
+        format: 'Y-m-d H:i',
+        defaultDate: new Date()
+    });
+</g:javascript>
+
 </body>
 </html>
