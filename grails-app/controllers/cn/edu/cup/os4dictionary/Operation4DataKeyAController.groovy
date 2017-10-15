@@ -16,6 +16,7 @@ class Operation4DataKeyAController extends DataKeyAController{
     def treeViewService
     def commonService
     def excelService
+    def dataService
 
     /*
     * 显示数据关键字的表头
@@ -73,7 +74,8 @@ class Operation4DataKeyAController extends DataKeyAController{
     def downloadTemplate(DataKeyA dataKeyA) {
         def path = servletContext.getRealPath("/") + "dictionary/templates"
         //def fileName = dataKeyA.createTemplate(path)
-        def fileName = excelService.createTemplate(dataKeyA, path)
+        //def fileName = excelService.createTemplate(dataKeyA, path)
+        def fileName = dataService.createTemplate(dataKeyA, path)
         params.downLoadFileName = fileName
         commonService.downLoadFile(params)
     }

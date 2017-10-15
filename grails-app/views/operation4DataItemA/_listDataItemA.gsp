@@ -19,6 +19,16 @@
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
             <f:table collection="${dataItemAList}" />
+            <table>
+                <thead>
+                <th></th>
+                </thead>
+                <tbody>
+                <tr>
+
+                </tr>
+                </tbody>
+            </table>
         </div>
     </body>
 </html>
