@@ -12,6 +12,22 @@
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
             <!--f:table collection="${dataItemAList}" /-->
+            <div>
+                <g:form>
+                    <span>
+                        <label>请选择项目</label>
+                        <g:if test="${dataItemAList.size()>0}">
+                            <select id="search4DataItem" name="search4DataItem">
+                                <g:each in="${dataItemAList[0].dataKeyA.subDataKeys}" var="item">
+                                    <option value="${item.dataTag}">${item.dataTag}</option>
+                                </g:each>
+                            </select>
+                            <g:textField name="searchValue"></g:textField>
+                        </g:if>
+                        <label></label>
+                    </span>
+                </g:form>
+            </div>
             <table>
                 <thead>
                 <th>数据项</th>
