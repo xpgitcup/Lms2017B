@@ -56,6 +56,23 @@
                 <div class="nav" role="navigation">
                     <ul>
                         <li><a class="create" href="javascript: createSystemUser(0)">新建</a></li>
+                        <li>
+                            <span>
+                                <form id="searchFormA">
+                                    <label>用户名：</label><input type="text" name="userName4Search" id="userName4Search"/>
+                                    <input type="button" onclick="search4UserName()" value="搜索">
+                                </form>
+                            </span>
+                        </li>
+                        <li>
+                            <span>
+                                <form id="searchFormB">
+                                    <label>用户属性：</label><input type="text" name="roleAttribute4Search" id="roleAttribute4Search"/>
+                                    <input type="button" onclick="filter4RoleAttribute()" value="过滤">
+                                    <input type="button" onclick="clearFilter()" value="清除过滤">
+                                </form>
+                            </span>
+                        </li>
                     </ul>
                 </div>
 

@@ -35,6 +35,37 @@ $(function(){
 });
 
 /*
+* 搜索属性
+* */
+function filter4RoleAttribute() {
+    var roleAttribute4Search = document.getElementById("roleAttribute4Search");
+    var roleAttribute = roleAttribute4Search.value;
+    if (roleAttribute) {
+        console.info("过滤：" + roleAttribute);
+        //过滤条件
+        $.cookie("filterKey", "roleAttribute", {path: '/'});
+        $.cookie("roleAttribute", roleAttribute, {path: '/'});
+
+        roleAttribute4Search.value = "";
+        ajaxRun("operation4SystemUser/findAllByRoleAttribute?roleAttribute=" + roleAttribute, 0, "listSystemUserDiv");
+    }
+}
+
+/*
+* 搜索用户名
+* */
+function search4UserName() {
+    var userName4Search = document.getElementById("userName4Search");
+    var userName = userName4Search.value;
+    if (userName) {
+        console.info("搜索：" + userName);
+        userName4Search.value = "";
+        ajaxRun("operation4SystemUser/findAllByUserName?userName=" + userName, 0, "listSystemUserDiv");
+    }
+}
+
+
+/*
  * 新建
  * */
 function createSystemUser(id) {
