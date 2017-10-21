@@ -37,8 +37,11 @@
                     <ul>
                         <li>
                             <a class="list">
-                                系统用户维护——(重新登录后，更新)
+                                用户维护
                             </a>
+                        </li>
+                        <li>
+                            <a class="list" id="filterKey">过滤：</a>
                         </li>
                     </ul>
                 </div>
@@ -68,7 +71,7 @@
                             <span>
                                 <form id="searchFormB">
                                     <label>用户属性：</label><input type="text" name="roleAttribute4Search" id="roleAttribute4Search"/>
-                                    <input type="button" onclick="filter4RoleAttribute()" value="过滤">
+                                    <input type="button" onclick="filter4SystemUser()" value="过滤">
                                     <input type="button" onclick="clearFilter()" value="清除过滤">
                                 </form>
                             </span>

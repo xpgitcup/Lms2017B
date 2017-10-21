@@ -3,6 +3,10 @@
  */
 var listSystemUserDiv;
 var paginationSystemUserDiv;
+var filterSystemUser;
+var currentPgaeSystemUser;
+var pageSizeSystemUser;
+var totalSystemUser;
 
 $(function(){
     console.info($("title").text() + "加载成功...");
@@ -11,10 +15,12 @@ $(function(){
     listSystemUserDiv = $("#listSystemUserDiv");
     paginationSystemUserDiv = $("#paginationSystemUserDiv");
 
+    //获取当前的过滤
+    filterSystemUser = readCookie("filterSystemUser", "");
     //获取当前页
-    var currentPgaeSystemUser = readCookie("currentPgaeSystemUser", 1);
-    var pageSizeSystemUser = readCookie("pageSizeSystemUser", pageSize);
-    var totalSystemUser = countSystemUser();
+    currentPgaeSystemUser = readCookie("currentPgaeSystemUser", 1);
+    pageSizeSystemUser = readCookie("pageSizeSystemUser", pageSize);
+    totalSystemUser = countSystemUser();
     console.info("记录总数：" + totalSystemUser);
 
     //加载数据
@@ -35,19 +41,36 @@ $(function(){
 });
 
 /*
+* 清除过滤条件
+* */
+function clearFilter() {
+    var roleAttribute4Search = document.getElementById("roleAttribute4Search");
+    roleAttribute4Search.value = "";
+    $.cookie("filterSystemUser", "");
+    var filterKey = document.getElementById("filterKey");
+    filterKey.innerText = "";
+    location.reload();
+}
+
+/*
 * 搜索属性
 * */
-function filter4RoleAttribute() {
+function filter4SystemUser() {
+    var filterKey = document.getElementById("filterKey");
     var roleAttribute4Search = document.getElementById("roleAttribute4Search");
     var roleAttribute = roleAttribute4Search.value;
     if (roleAttribute) {
         console.info("过滤：" + roleAttribute);
+        filterKey.innerText = "过滤：" + roleAttribute;
         //过滤条件
-        $.cookie("filterKey", "roleAttribute", {path: '/'});
-        $.cookie("roleAttribute", roleAttribute, {path: '/'});
-
-        roleAttribute4Search.value = "";
-        ajaxRun("operation4SystemUser/findAllByRoleAttribute?roleAttribute=" + roleAttribute, 0, "listSystemUserDiv");
+        $.cookie("filterSystemUser", "roleAttribute-" + roleAttribute);
+        /*
+        ajaxRun("operation4SystemUser/filter4SystemUser"
+            + getParams(currentPgaeSystemUser, pageSizeSystemUser)
+            + "&roleAttribute=" + roleAttribute,
+            0, "listSystemUserDiv");
+            */
+        location.reload();
     }
 }
 
@@ -85,8 +108,18 @@ function editSystemUser(id) {
  * 统计记录总数
  * */
 function countSystemUser() {
-    console.info("开始统计...")
-    var total = ajaxCalculate("operation4SystemUser/countSystemUser");
+    //console.info("开始统计...");
+    var total = 0;
+    if (filterSystemUser) {
+        var filterKey = document.getElementById("filterKey");
+        console.info(filterSystemUser);
+        var s = filterSystemUser.split('-');
+        filterKey.innerText = "过滤：" + s[1];
+        console.info(s);
+        total = ajaxCalculate("operation4SystemUser/countSystemUserWithFilter?" + s[0] + "=" + s[1]);
+    } else {
+        total = ajaxCalculate("operation4SystemUser/countSystemUser");
+    }
     console.info("统计结果：" + total);
     return total;
 }
@@ -105,6 +138,16 @@ function showSystemUser(id) {
 * 列表显示当前所有对象
 * */
 function listSystemUser(pageNumber, pageSize) {
-    console.info("列表显示对象：");
-    ajaxRun("operation4SystemUser/listSystemUser" + getParams(pageNumber, pageSize), 0, "listSystemUserDiv");
+    //console.info("列表显示对象：");
+    if (filterSystemUser)
+    {
+        var s = filterSystemUser.split('-');
+        ajaxRun("operation4SystemUser/filter4SystemUser"
+            + getParams(pageNumber, pageSize)
+            + "&"
+            + s[0] + "=" + s[1],
+            0, "listSystemUserDiv");
+    } else {
+        ajaxRun("operation4SystemUser/listSystemUser" + getParams(pageNumber, pageSize), 0, "listSystemUserDiv");
+    }
 }

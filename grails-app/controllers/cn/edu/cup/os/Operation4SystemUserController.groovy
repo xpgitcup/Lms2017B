@@ -9,15 +9,41 @@ import grails.gorm.transactions.Transactional
 class Operation4SystemUserController extends SystemUserController {
 
     /*
-    * 搜索用户属性
+    * 统计带有过滤的统计
     * */
-    def findAllByRoleAttribute() {
-        def roleAttribute = params.roleAttribute
-        def systemUserList = SystemUser.findAll(params) {
-            roleAttribute like
-        }
 
-        
+    def countSystemUserWithFilter() {
+        def roleAttribute = params.roleAttribute
+        def ppp = "%${roleAttribute}%"
+        def q = SystemUser.createCriteria()
+        def count = q.get {
+            projections {
+                count("roleAttribute")
+                like("roleAttribute", ppp)
+            }
+        }
+        def result = [count: count]
+        if (request.xhr) {
+            render result as JSON
+        } else {
+            result
+        }
+    }
+
+    /*
+    * 过滤用户属性
+    * */
+
+    def filter4SystemUser() {
+        //println("${params}")
+        def roleAttribute = params.roleAttribute
+        def ppp = "%${roleAttribute}%"
+        //println(p)
+        def q = SystemUser.createCriteria()
+        def systemUserList = q.list(params) {
+            like("roleAttribute", ppp)
+        }
+        println("${systemUserList}")
         if (request.xhr) {
             render(template: 'listSystemUser', model: [systemUserList: systemUserList])
         } else {
@@ -28,6 +54,7 @@ class Operation4SystemUserController extends SystemUserController {
     /*
     * 检索用户名
     * */
+
     def findAllByUserName() {
         def userName = params.userName
         def systemUserList = SystemUser.findAllByUserName(userName)
@@ -100,7 +127,6 @@ class Operation4SystemUserController extends SystemUserController {
         } else {
             result
         }
-        //return count //就是不行
     }
 
     /*
