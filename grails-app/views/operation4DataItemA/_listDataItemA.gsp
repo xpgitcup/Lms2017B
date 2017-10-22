@@ -24,14 +24,14 @@
                         <span>
                             <label>请选择项目</label>
                             <g:if test="${dataItemAList.size() > 0}">
-                                <select id="search4DataItem" name="search4DataItem">
+                                <select id="searchKey4DataItem" name="searchKey4DataItem">
                                     <g:each in="${dataItemAList[0].subDataItems}" var="item">
-                                        <option value="${item.dataKeyA.dataTag}">${item.dataKeyA.dataTag}</option>
+                                        <option value="${item.dataKeyA.id}">${item.dataKeyA.dataTag}</option>
                                     </g:each>
                                 </select>
                             </g:if>
-                            <g:textField name="searchValue"></g:textField>
-                            <input type="button" value="搜索"/>
+                            <g:textField name="searchValue4DataItem" id="searchValue4DataItem"></g:textField>
+                            <input type="button" value="搜索" onclick="search4DataItem()"/>
                         </span>
                     </g:form>
                 </th>
@@ -40,15 +40,17 @@
         </table>
     </div>
     <table>
-        <thead>
-        <th>数据项</th>
-        <th>操作</th>
-        </thead>
+        <g:if test="${dataItemAList.size() > 0}">
+            <thead>
+            <th>数据项</th>
+            <th colspan="${dataItemAList[0].subDataItems.size() - 1}">操作</th>
+            </thead>
+        </g:if>
         <tbody>
         <g:each var="item" status="i" in="${dataItemAList}">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                 <td>${item.dataKeyA.dataTag}</td>
-                <td>
+                <td colspan="${dataItemAList[0].subDataItems.size() - 1}">
                     <a href="operation4DataItemA/exportToExcelFile/${item.id}">导出</a>
                 </td>
             </tr>

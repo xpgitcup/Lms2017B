@@ -1,3 +1,10 @@
+var listDataItemADiv;
+var paginationListDataItemADiv;
+
+var currentPgaeDataItemA;
+var pageSizeDataItemA;
+var totalDataItemA;
+
 /*
 * 处理显示标签页的转换，以及分页显示问题
 * */
@@ -8,9 +15,9 @@ function tabAndPage4DataItemA() {
     paginationListDataItemADiv = $("#paginationListDataItemADiv");
 
     //获取当前页
-    var currentPgaeDataItemA = readCookie("currentPgaeDataItemA", 1);
-    var pageSizeDataItemA = readCookie("pageSizeDataItemA", 5);
-    var totalDataItemA = countDataItemA();
+    currentPgaeDataItemA = readCookie("currentPgaeDataItemA", 1);
+    pageSizeDataItemA = readCookie("pageSizeDataItemA", 5);
+    totalDataItemA = countDataItemA();
     //console.info("记录总数：" + totalDataItemA);
 
 
@@ -29,6 +36,18 @@ function tabAndPage4DataItemA() {
     });
     paginationListDataItemADiv.pagination("select", currentPgaeDataItemA);
     //------------------------------------------------------------------------------------------------------------------
+}
+/*
+* 搜索某一关键字的记录
+* */
+function search4DataItem() {
+    var searchKey4DataItem = document.getElementById("searchKey4DataItem")
+    var searchKey = searchKey4DataItem.value
+    console.info(searchKey);
+    var searchValue4DataItem = document.getElementById("searchValue4DataItem");
+    var searchValue = searchValue4DataItem.value
+    console.info(searchValue);
+    ajaxRun("operation4DataItemA/searchDataItemA?dataKey=" + searchKey + "&searchValue=" + searchValue, 0, "listDataItemADiv");
 }
 
 /*

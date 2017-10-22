@@ -13,8 +13,28 @@ class Operation4DataItemAController {
     def dataService
 
     /*
+    * 搜索特定的dataItem
+    * */
+
+    def searchDataItemA() {
+        def dataKey = DataKeyA.get(Integer.parseInt(params.dataKey))
+        def dataValue = params.searchValue
+        def items = DataItemA.findAllByDataKeyAAndDataValue(dataKey, dataValue)
+        def dataItemAList = []
+        items.each { e ->
+            dataItemAList.add(e.upDataItem)
+        }
+        if (request.xhr) {
+            render(template: 'listDataItemA', model: [dataItemAList: dataItemAList])
+        } else {
+            respond dataItemAList
+        }
+    }
+
+    /*
     * 数据导出到Excel文件
     * */
+
     def exportToExcelFile(DataItemA dataItemA) {
         def path = servletContext.getRealPath("/") + "temp"
         def filename = dataService.exportToExcelFile(dataItemA, path)
