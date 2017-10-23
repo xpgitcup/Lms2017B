@@ -149,6 +149,7 @@ class DataService {
                 newItems.add(item)
             }
             dataItemA.subDataItems = newItems
+            dataItemA.dataValue = createIndex(dataItemA)
             dataItemA.save(flush: true)
             message.add("成功导入文件 ${excelFile}.")
         } else {
