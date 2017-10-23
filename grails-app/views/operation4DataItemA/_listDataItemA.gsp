@@ -43,13 +43,15 @@
         <g:if test="${dataItemAList.size() > 0}">
             <thead>
             <th>数据项</th>
-            <th colspan="${dataItemAList[0].subDataItems.size() - 1}">操作</th>
+            <th>索引</th>
+            <th colspan="${dataItemAList[0].subDataItems.size() - 2}">操作</th>
             </thead>
         </g:if>
         <tbody>
         <g:each var="item" status="i" in="${dataItemAList}">
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                 <td>${item.dataKeyA.dataTag}</td>
+                <td>${item.dataValue}</td>
                 <td colspan="${dataItemAList[0].subDataItems.size() - 1}">
                     <a href="operation4DataItemA/exportToExcelFile/${item.id}">导出</a>
                 </td>
