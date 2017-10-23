@@ -1,11 +1,5 @@
 package cn.edu.cup.dictionary
 
-import jxl.Sheet
-import jxl.Workbook
-import jxl.write.Label
-import jxl.write.WritableSheet
-import jxl.write.WritableWorkbook
-
 class DataKeyA {
 
     String dataTag                  //数据标签
@@ -13,9 +7,11 @@ class DataKeyA {
     String appendParameter = ''     //附加参数
     DataKeyType dataKeyType = DataKeyType.dataKeyNormal     //数据关键字类型
     String columnSeperator = ","   //列分割副
-    int columnNumber = 1           //列数
 
+    int columnNumber = 1           //列数
     int orderNumber = 0            //顺序
+
+    boolean indexed = false        //索引关键字
 
     DataKeyA upDataKey
 
@@ -34,6 +30,7 @@ class DataKeyA {
         dataKeyType()
         columnNumber()
         columnSeperator()
+        indexed(nullable: true)
         orderNumber()
         upDataKey(nullable: true)
     }

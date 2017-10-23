@@ -6,6 +6,7 @@
     <f:field property="columnNumber" label="列数"/>
     <f:field property="columnSeperator" label="列分隔-不要改"/>
     <f:field property="upDataKey" label="超类"/>
+    <f:field property="indexed" label="是否索引"/>
      <hr>
     <f:field property="orderNumber" label="序号"/>
     <f:field property="dictionary"/>

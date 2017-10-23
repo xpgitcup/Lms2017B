@@ -14,6 +14,33 @@ import jxl.write.WritableWorkbook
 class DataService {
 
     /*
+    * 构建数据的索引
+    * */
+
+    def createIndex(DataItemA dataItemA) {
+        def temp = ""
+        def m = [:]
+        switch (dataItemA.dataKeyA.id) {
+            case 33:
+                dataItemA.subDataItems.each { e ->
+                    if (e.dataKeyA.indexed) {
+                        //m.put(e.dataKeyA.dataTag, e.dataValue)
+                        temp = e.dataValue
+                    }
+                }
+                break
+            default:
+                dataItemA.subDataItems.each { e ->
+                    if (e.dataKeyA.indexed) {
+                        m.put(e.dataKeyA.dataTag, e.dataValue)
+                    }
+                }
+                temp = "${m}"
+        }
+        return temp
+    }
+
+    /*
     * 生成模板文件
     * */
 
@@ -44,6 +71,7 @@ class DataService {
     /*
     * 直接将关键字的Heads顺序输出到Excel文件中
     * */
+
     private void exportHeads(DataKeyA dataKeyA, sheet) {
         int r = 0;
         int c = 0;
@@ -77,7 +105,7 @@ class DataService {
 
             int r = 3
             int c = 0
-            dataItemA.subDataItems.each {e ->
+            dataItemA.subDataItems.each { e ->
                 def label = new Label(c, r, e.dataValue)
                 sheet.addCell(label)
                 c++
@@ -96,6 +124,7 @@ class DataService {
     /*
     * 导入数据文件
     * */
+
     @Transactional
     def importDataFromExcelFile(DataKeyA dataKeyA, excelFile) {
         def message = []
@@ -110,11 +139,11 @@ class DataService {
 
         checkHeads(dataKeyA, sheet, message)
 
-        if (message.size()<1) {
+        if (message.size() < 1) {
             def dataItemA = new DataItemA(dataKeyA: dataKeyA)
             def newItems = []
             int r = 3
-            dataKeyA.realSubDataKeys().eachWithIndex{ DataKeyA entry, int i ->
+            dataKeyA.realSubDataKeys().eachWithIndex { DataKeyA entry, int i ->
                 def cell = sheet.getCell(i, r)
                 def item = new DataItemA(upDataItem: dataItemA, dataKeyA: entry, dataValue: cell.contents)
                 newItems.add(item)
@@ -130,6 +159,7 @@ class DataService {
     /*
     * 导入数据文件检查
     * */
+
     private void checkHeads(DataKeyA dataKeyA, sheet, message) {
         int r = 0
         int c = 0

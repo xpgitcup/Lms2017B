@@ -4,9 +4,11 @@ import cn.edu.cup.dictionary.DataItemA
 import cn.edu.cup.dictionary.DataKeyA
 import grails.converters.JSON
 import grails.gorm.transactions.Transactional
+import groovy.json.JsonOutput
 
 import static org.springframework.http.HttpStatus.CREATED
 
+@Transactional(readOnly = true)
 class Operation4DataItemAController {
 
     def commonService
@@ -131,6 +133,9 @@ class Operation4DataItemAController {
             redirect(controller: 'operation4DataA', action: 'index')
             return
         }
+
+        //处理关键字索引
+        dataItemA.dataValue = dataService.createIndex(dataItemA)
 
         dataItemA.save(flush: true)
 

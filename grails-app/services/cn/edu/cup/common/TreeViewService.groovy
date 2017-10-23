@@ -1,7 +1,7 @@
 package cn.edu.cup.common
 
 import cn.edu.cup.dictionary.JsFrame
-import grails.transaction.Transactional
+import grails.gorm.transactions.Transactional
 
 @Transactional
 class TreeViewService extends GenericService {
