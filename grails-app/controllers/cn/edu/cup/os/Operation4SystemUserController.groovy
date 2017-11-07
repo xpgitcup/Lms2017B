@@ -143,5 +143,7 @@ class Operation4SystemUserController extends SystemUserController {
         }
     }
 
+    def index4Attribute() {}
+
     def index() {}
 }

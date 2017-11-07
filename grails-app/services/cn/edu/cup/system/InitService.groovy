@@ -137,6 +137,15 @@ class InitService {
             )
             m14.save(true)
             //----------------------------------------------------------------------------------------------------------
+            def m15 = new SystemMenu(
+                    menuContext: "权限管理",
+                    menuAction: "Operation4SystemUser/index4Attribute",
+                    menuDescription: "对系统的日志进行用户友好的维护",
+                    upMenuItem: m1,
+                    menuOrder: 0
+            )
+            m15.save(true)
+            //----------------------------------------------------------------------------------------------------------
             def m2 = new SystemMenu(
                     menuContext: "公共服务",
                     menuAction: "#",
