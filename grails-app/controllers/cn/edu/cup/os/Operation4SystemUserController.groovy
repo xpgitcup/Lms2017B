@@ -70,9 +70,14 @@ class Operation4SystemUserController extends SystemUserController {
     * */
 
     def listSystemUser() {
+        def view = "listSystemUser"
+        if (params.view) {
+            view = params.view
+            println("使用模板：${view}")
+        }
         def systemUserList = SystemUser.list(params)
         if (request.xhr) {
-            render(template: 'listSystemUser', model: [systemUserList: systemUserList])
+            render(template: "${view}", model: [systemUserList: systemUserList])
         } else {
             respond systemUserList
         }
