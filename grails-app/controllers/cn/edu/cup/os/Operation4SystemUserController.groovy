@@ -1,12 +1,47 @@
 package cn.edu.cup.os
 
 import cn.edu.cup.system.SystemUser
+import cn.edu.cup.system.SystemMenu
 import cn.edu.cup.system.SystemUserController
 import grails.converters.JSON
 import grails.gorm.transactions.Transactional
 
 @Transactional(readOnly = true)
 class Operation4SystemUserController extends SystemUserController {
+
+    /*
+    * 编辑用户权限
+    * */
+
+    def editRoleAttribute(SystemUser systemUser) {
+        def view = "editRoleAttribute"
+        if (params.view) {
+            view = params.view
+            println("使用模板：${view}")
+        }
+
+        def topMenu = SystemMenu.findAllByUpMenuItemIsNull()
+        def roles = [:]
+        topMenu.each { e ->
+            def ss = e.roleAttribute.split()
+            ss.each { s ->
+                roles.put(s, false)
+            }
+        }
+
+        def ss = systemUser.roleAttribute.split()
+        ss.each { s ->
+            roles.put(s, true)
+        }
+
+        def data = [systemUser: systemUser, roles: roles]
+
+        if (request.xhr) {
+            render(template: "${view}", model: data)
+        } else {
+            respond data
+        }
+    }
 
     /*
     * 统计带有过滤的统计
@@ -147,8 +182,6 @@ class Operation4SystemUserController extends SystemUserController {
             theModel
         }
     }
-
-    def index4Attribute() {}
 
     def index() {}
 }

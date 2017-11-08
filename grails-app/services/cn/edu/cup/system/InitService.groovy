@@ -137,6 +137,7 @@ class InitService {
             )
             m14.save(true)
             //----------------------------------------------------------------------------------------------------------
+            /*
             def m15 = new SystemMenu(
                     menuContext: "权限管理",
                     menuAction: "Operation4SystemUser/index4Attribute",
@@ -145,6 +146,7 @@ class InitService {
                     menuOrder: 0
             )
             m15.save(true)
+            */
             //----------------------------------------------------------------------------------------------------------
             def m2 = new SystemMenu(
                     menuContext: "公共服务",

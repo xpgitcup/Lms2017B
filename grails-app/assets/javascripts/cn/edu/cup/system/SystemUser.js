@@ -8,7 +8,8 @@ var currentPgaeSystemUser;
 var pageSizeSystemUser;
 var totalSystemUser;
 
-$(function(){
+function tabAndPage4SystemUesr() {
+
     console.info($("title").text() + "加载成功...");
 
     //获取当前页面的div
@@ -38,7 +39,7 @@ $(function(){
             listSystemUser(pageNumber, pageSize);
         }
     });
-});
+}
 
 /*
 * 清除过滤条件

@@ -1,0 +1,13 @@
+cn.edu.cup.system.$SystemLogServiceImplementation
+cn.edu.cup.system.$SystemSponserServiceImplementation
+cn.edu.cup.system.$SystemMenuServiceImplementation
+cn.edu.cup.system.$SystemDefaultMenuServiceImplementation
+cn.edu.cup.system.$SystemChatServiceImplementation
+cn.edu.cup.system.$SystemUserServiceImplementation
+cn.edu.cup.dictionary.$DataDictionaryServiceImplementation
+cn.edu.cup.dictionary.$DataItemAServiceImplementation
+cn.edu.cup.system.$SystemProcedureServiceImplementation
+cn.edu.cup.system.$SystemTitleServiceImplementation
+cn.edu.cup.system.$SystemAttributeServiceImplementation
+cn.edu.cup.system.$SystemCarouselServiceImplementation
+cn.edu.cup.dictionary.$DataKeyAServiceImplementation

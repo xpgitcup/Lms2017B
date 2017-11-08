@@ -105,6 +105,44 @@ function ajaxCalculate(url) {
 
 
 /*
+ * 通用的ajax执行函数, 域类的ID，视图模板，显示div
+ * */
+function ajaxRunWith(url, id, viewName, divId) {
+    //console.info(url + '---' + id);
+    //console.info("当前路径:" + window.location)
+    if (id != null) {
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {id: id, view: viewName},
+            success: function (data, textStatus) {
+                $('#' + divId).html(data);
+                //console.info(data);   //调试用的
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.info(XMLHttpRequest);
+                console.info(textStatus);
+                console.info(errorThrown);
+            }
+        });
+    } else {
+        $.ajax({
+            type: 'POST',
+            url: url,
+            success: function (data, textStatus) {
+                $('#' + divId).html(data);
+                //console.info(data);   //调试用的
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                console.info(XMLHttpRequest);
+                console.info(textStatus);
+                console.info(errorThrown);
+            }
+        });
+    }
+}
+
+/*
  * 通用的ajax执行函数
  * */
 function ajaxRun(url, id, divId) {
@@ -141,4 +179,3 @@ function ajaxRun(url, id, divId) {
         });
     }
 }
-
