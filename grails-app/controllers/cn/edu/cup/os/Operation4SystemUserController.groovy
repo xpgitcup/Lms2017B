@@ -10,6 +10,29 @@ import grails.gorm.transactions.Transactional
 class Operation4SystemUserController extends SystemUserController {
 
     /*
+    * 更新用户权限
+    * */
+
+    @Transactional
+    def updateRoleAttribute() {
+        def systemUser = SystemUser.get(params.id)
+        def role = ""
+        params.roleAttribute.each { e ->
+            if (role.isEmpty()) {
+                role += e
+            } else {
+                role += " "
+                role += e
+            }
+        }
+        systemUser.roleAttribute = role
+        systemUser.save(true)
+        print("${params}")
+        print("${systemUser}")
+        redirect(action: "index")
+    }
+
+    /*
     * 编辑用户权限
     * */
 

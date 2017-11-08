@@ -14,11 +14,22 @@
 
 <body>
 <h1>${systemUser} ${roles}</h1>
-<g:form>
+<g:form controller="operation4SystemUser" action="updateRoleAttribute">
     <fieldset class="form">
-        <g:each in="${roles}" var="item" status="i">
-            <g:checkBox name="${item.key}" value="${item.key}">${item.key}</g:checkBox>
-        </g:each>
+        <g:hiddenField name="id" value="${systemUser.id}"></g:hiddenField>
+        <ul>
+            <g:each in="${roles}" var="item" status="i">
+                <li>
+                    <g:if test="${item.value}">
+                        <input type="checkbox" name="roleAttribute" value="${item.key}" checked="${item.value}">${item.key}
+                    </g:if>
+                    <g:else>
+                        <input type="checkbox" name="roleAttribute" value="${item.key}">${item.key}
+                    </g:else>
+                </li>
+            </g:each>
+        </ul>
+        <input type="submit" value="OK">
     </fieldset>
 </g:form>
 </body>
