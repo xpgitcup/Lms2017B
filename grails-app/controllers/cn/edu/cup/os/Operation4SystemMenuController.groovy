@@ -1,5 +1,6 @@
 package cn.edu.cup.os
 
+import com.alibaba.fastjson.JSON
 import cn.edu.cup.dictionary.JsFrame
 import cn.edu.cup.system.SystemMenu
 import cn.edu.cup.system.SystemMenuController

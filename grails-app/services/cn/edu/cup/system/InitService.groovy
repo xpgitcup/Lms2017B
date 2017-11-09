@@ -1,5 +1,6 @@
 package cn.edu.cup.system
 
+import com.alibaba.fastjson.JSON
 import grails.core.GrailsApplication
 import grails.gorm.transactions.Transactional
 
@@ -239,20 +240,22 @@ class InitService {
      * 初始化用户数据
      **/
     def initSystemUsers() {
+        def roles = ["底层管理","系统维护","公共服务"]
+        //def json = JSON.toJSONString(roles)
         if (SystemUser.count() < 1) {
-            newUser("李晓平", "3764", '底层管理 系统维护 公共服务')
-            newUser("宫敬", "2156", '底层管理 系统维护 公共服务')
-            newUser("吴海浩", "3181", '底层管理 系统维护 公共服务')
+            newUser("李晓平", "3764", roles)
+            newUser("宫敬", "2156", roles)
+            newUser("吴海浩", "3181", roles)
 
-            newUser("洪炳沅", "527527", '底层管理 系统维护 公共服务')
-            newUser("闵元", "519519", '底层管理 系统维护 公共服务')
-            newUser("苏越", "519519", '底层管理 系统维护 公共服务')
-            newUser("李愚", "519519", '底层管理 系统维护 公共服务')
-            newUser("周艳红", "519519", '底层管理 系统维护 公共服务')
-            newUser("万洋洋", "519519", '底层管理 系统维护 公共服务')
-            newUser("韦宝成", "519519", '底层管理 系统维护 公共服务')
-            newUser("王茀玺", "519519", '底层管理 系统维护 公共服务')
-            newUser("金浩", "519519", '底层管理 系统维护 公共服务')
+            newUser("洪炳沅", "527527", roles)
+            newUser("闵元", "519519", roles)
+            newUser("苏越", "519519", roles)
+            newUser("李愚", "519519", roles)
+            newUser("周艳红", "519519", roles)
+            newUser("万洋洋", "519519", roles)
+            newUser("韦宝成", "519519", roles)
+            newUser("王茀玺", "519519", roles)
+            newUser("金浩", "519519", roles)
         }
     }
 

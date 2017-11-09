@@ -16,19 +16,27 @@ class Operation4SystemUserController extends SystemUserController {
     @Transactional
     def updateRoleAttribute() {
         def systemUser = SystemUser.get(params.id)
-        def role = ""
-        params.roleAttribute.each { e ->
-            if (role.isEmpty()) {
-                role += e
+        if (params.roleAttribute) {
+            def temp = "${params.roleAttribute}"
+            //println(temp)
+            def roles = ""
+            if (temp.contains(",")) {
+                params.roleAttribute.each { e ->
+                    if (roles.isEmpty()) {
+                        roles += e
+                    } else {
+                        roles += ","
+                        roles += e
+                    }
+                }
             } else {
-                role += " "
-                role += e
+                roles = temp
             }
+            systemUser.roleAttribute = roles
+        } else {
+            systemUser.roleAttribute = ""
         }
-        systemUser.roleAttribute = role
         systemUser.save(true)
-        print("${params}")
-        print("${systemUser}")
         redirect(action: "index")
     }
 
@@ -52,9 +60,12 @@ class Operation4SystemUserController extends SystemUserController {
             }
         }
 
-        def ss = systemUser.roleAttribute.split()
+        def ss = systemUser.roleAttribute.split(/[, ,]/)
+        //def ss = JSON.parse(systemUser.roleAttribute)
         ss.each { s ->
-            roles.put(s, true)
+            if (!s.isEmpty()) {
+                roles.put(s, true)
+            }
         }
 
         def data = [systemUser: systemUser, roles: roles]

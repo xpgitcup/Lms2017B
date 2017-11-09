@@ -1,5 +1,7 @@
 package cn.edu.cup.system
 
+import grails.converters.JSON
+
 class SystemUser {
     
     String  userName
@@ -36,7 +38,8 @@ class SystemUser {
 
     //------------------------------------------------------------------------------------------------------------------
     def userRoles() {
-        return roleAttribute?.split()
+        return roleAttribute?.split(/[, ,]/)
+        //return JSON.parse(roleAttribute)
     }
 
     def hasRole (roleName) {
