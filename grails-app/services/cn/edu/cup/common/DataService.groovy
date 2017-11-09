@@ -131,6 +131,7 @@ class DataService {
 
         Workbook book = Workbook.getWorkbook(excelFile)
         Sheet sheet = book.getSheet(dataKeyA.dataTag)
+        def numOfRows = sheet.rows
 
         if (!sheet) {
             message.add("找不到数据：${dataKeyA.dataTag}")
@@ -140,18 +141,22 @@ class DataService {
         checkHeads(dataKeyA, sheet, message)
 
         if (message.size() < 1) {
-            def dataItemA = new DataItemA(dataKeyA: dataKeyA)
-            def newItems = []
             int r = 3
-            dataKeyA.realSubDataKeys().eachWithIndex { DataKeyA entry, int i ->
-                def cell = sheet.getCell(i, r)
-                def item = new DataItemA(upDataItem: dataItemA, dataKeyA: entry, dataValue: cell.contents)
-                newItems.add(item)
+            for (r = 3; r < numOfRows; r++) {
+                def dataItemA = new DataItemA(dataKeyA: dataKeyA)
+                def newItems = []
+                // 读入一行的数据
+                dataKeyA.realSubDataKeys().eachWithIndex { DataKeyA entry, int i ->
+                    def cell = sheet.getCell(i, r)
+                    def item = new DataItemA(upDataItem: dataItemA, dataKeyA: entry, dataValue: cell.contents)
+                    newItems.add(item)
+                }
+                dataItemA.subDataItems = newItems
+                dataItemA.dataValue = createIndex(dataItemA)
+                dataItemA.save(flush: true)
+                message.add("成功导入文件 ${excelFile} 第${r}行.")
             }
-            dataItemA.subDataItems = newItems
-            dataItemA.dataValue = createIndex(dataItemA)
-            dataItemA.save(flush: true)
-            message.add("成功导入文件 ${excelFile}.")
+            return message
         } else {
             return message
         }

@@ -15,6 +15,20 @@ class Operation4DataItemAController {
     def dataService
 
     /*
+    * 统计特定的dataItem
+    * */
+    def countDataItemA4SataKey() {
+        def dataKey = DataKeyA.get(Integer.parseInt(params.dataKey))
+        def dataValue = params.searchValue
+        def count = DataItemA.countByDataKeyAAndDataValue(dataKey, dataValue)
+        if (request.xhr) {
+            render count as JSON
+        } else {
+            return count
+        }
+    }
+
+    /*
     * 搜索特定的dataItem
     * */
 

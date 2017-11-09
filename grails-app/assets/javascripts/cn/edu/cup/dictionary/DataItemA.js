@@ -37,6 +37,7 @@ function tabAndPage4DataItemA() {
     paginationListDataItemADiv.pagination("select", currentPgaeDataItemA);
     //------------------------------------------------------------------------------------------------------------------
 }
+
 /*
 * 搜索某一关键字的记录
 * */
@@ -47,7 +48,13 @@ function search4DataItem() {
     var searchValue4DataItem = document.getElementById("searchValue4DataItem");
     var searchValue = searchValue4DataItem.value
     console.info(searchValue);
-    ajaxRun("operation4DataItemA/searchDataItemA?dataKey=" + searchKey + "&searchValue=" + searchValue, 0, "listDataItemADiv");
+
+    var total = ajaxCalculate("operation4DataItemA/countDataItemA4SataKey/?dataKey="
+        + searchKey + "&searchValue=" + searchValue);
+    paginationListDataItemADiv.pagination({total: total});
+
+    ajaxRun("operation4DataItemA/searchDataItemA?dataKey="
+        + searchKey + "&searchValue=" + searchValue, 0, "listDataItemADiv");
 }
 
 /*
