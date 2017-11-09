@@ -1,7 +1,6 @@
 package cn.edu.cup.dictionary
 
 class DataKeyA {
-
     String dataTag                  //数据标签
     String dataUnit = '无量纲'      //数据单位
     String appendParameter = ''     //附加参数
