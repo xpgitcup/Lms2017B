@@ -20,6 +20,9 @@
             <thead>
             <tr>
                 <th>
+                    <a class="list" id="filterKey4DataItem">过滤：</a>
+                </th>
+                <th>
                     <g:form>
                         <span>
                             <label>请选择项目</label>

@@ -5,6 +5,9 @@ var currentPgaeDataItemA;
 var pageSizeDataItemA;
 var totalDataItemA;
 
+var searchKey4DataItem;
+var searchValue4DataItem;
+var filterKey4DataItem;
 /*
 * 处理显示标签页的转换，以及分页显示问题
 * */
@@ -42,19 +45,23 @@ function tabAndPage4DataItemA() {
 * 搜索某一关键字的记录
 * */
 function search4DataItem() {
-    var searchKey4DataItem = document.getElementById("searchKey4DataItem")
-    var searchKey = searchKey4DataItem.value
-    console.info(searchKey);
-    var searchValue4DataItem = document.getElementById("searchValue4DataItem");
-    var searchValue = searchValue4DataItem.value
-    console.info(searchValue);
+    searchKey4DataItem = document.getElementById("searchKey4DataItem").value;
+    //var searchKey = searchKey4DataItem.value
+    //console.info(searchKey);
+    searchValue4DataItem = document.getElementById("searchValue4DataItem").value;
+    //var searchValue = searchValue4DataItem.value
+    //console.info(searchValue);
 
-    var total = ajaxCalculate("operation4DataItemA/countDataItemA4SataKey/?dataKey="
-        + searchKey + "&searchValue=" + searchValue);
+    filterKey4DataItem = document.getElementById("filterKey4DataItem");
+
+    if (searchValue4DataItem) {
+        filterKey4DataItem.innerText = "过滤：" + searchKey4DataItem + "=" + searchValue4DataItem;
+        location.reload();
+    }
+    /*
     paginationListDataItemADiv.pagination({total: total});
 
-    ajaxRun("operation4DataItemA/searchDataItemA?dataKey="
-        + searchKey + "&searchValue=" + searchValue, 0, "listDataItemADiv");
+    */
 }
 
 /*
@@ -89,7 +96,13 @@ function prepareImportDataItemA(id) {
  * */
 function countDataItemA() {
     //console.info("开始统计...")
-    var total = ajaxCalculate("operation4DataItemA/countDataItemA");
+    var total;
+    if (!searchValue4DataItem) {
+        total = ajaxCalculate("operation4DataItemA/countDataItemA");
+    } else {
+        var total = ajaxCalculate("operation4DataItemA/countDataItemA4SataKey/?dataKey="
+            + searchKey4DataItem + "&searchValue=" + searchValue4DataItem);
+    }
     //console.info("正在听统计结果：" + total);
     return total;
 }
@@ -99,7 +112,14 @@ function countDataItemA() {
 * */
 function listDataItemA(pageNumber, pageSize) {
     //console.info("列表显示对象：");
-    ajaxRun("operation4DataItemA/listDataItemA" + getParams(pageNumber, pageSize), 0, "listDataItemADiv");
+    if (!searchValue4DataItem) {
+        ajaxRun("operation4DataItemA/listDataItemA" + getParams(pageNumber, pageSize), 0, "listDataItemADiv");
+    } else {
+        ajaxRun("operation4DataItemA/searchDataItemA?dataKey="
+            + searchKey4DataItem + "&searchValue=" + searchValue4DataItem
+            + getParams(pageNumber, pageSize),
+            0, "listDataItemADiv");
+    }
 }
 
 /*
