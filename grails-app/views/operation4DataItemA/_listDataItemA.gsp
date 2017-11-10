@@ -14,14 +14,11 @@
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
-<!--f:table collection="${dataItemAList}" /-->
+
     <div class="nav">
         <table>
             <thead>
             <tr>
-                <th>
-                    <a class="list" id="filterKey4DataItem">过滤：</a>
-                </th>
                 <th>
                     <g:form>
                         <span>
@@ -38,10 +35,16 @@
                         </span>
                     </g:form>
                 </th>
+                <th>
+                    <a class="list" href="javascript: clearSearchOptions()">清除</a>
+                </th>
             </tr>
             </thead>
         </table>
     </div>
+
+
+    <!--f:table collection="${dataItemAList}" /-->
     <table>
         <g:if test="${dataItemAList.size() > 0}">
             <thead>
@@ -75,5 +78,6 @@
         </tbody>
     </table>
 </div>
+
 </body>
 </html>

@@ -105,7 +105,7 @@ class Operation4DataKeyAController extends DataKeyAController{
 
     def listDataKeyA4DataModel() {
         def dataKeyAList// = DataKeyA.findAllBySubDataKeysIsNotEmpty(params)
-
+        println("DataItemA-- ${params}")
         params.sort = 'orderNumber'
 
         if (session.currentDataDictionary) {

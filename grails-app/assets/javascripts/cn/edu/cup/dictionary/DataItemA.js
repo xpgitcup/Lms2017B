@@ -8,6 +8,7 @@ var totalDataItemA;
 var searchKey4DataItem;
 var searchValue4DataItem;
 var filterKey4DataItem;
+
 /*
 * 处理显示标签页的转换，以及分页显示问题
 * */
@@ -22,6 +23,7 @@ function tabAndPage4DataItemA() {
     pageSizeDataItemA = readCookie("pageSizeDataItemA", 5);
     totalDataItemA = countDataItemA();
     //console.info("记录总数：" + totalDataItemA);
+    readSearchOptions();
 
 
     //分页
@@ -42,6 +44,33 @@ function tabAndPage4DataItemA() {
 }
 
 /*
+* 清除搜索选项
+* */
+function clearSearchOptions() {
+    $.cookie("searchKey4DataItem", "");
+    $.cookie("searchValue4DataItem", "");
+    location.reload();
+}
+
+/*
+* 保存搜索选项
+* */
+function saveSearchOptions() {
+    $.cookie("searchKey4DataItem", searchKey4DataItem);
+    $.cookie("searchValue4DataItem", searchValue4DataItem);
+}
+
+/*
+* 读取搜索选项
+* */
+function readSearchOptions() {
+    searchKey4DataItem = $.cookie("searchKey4DataItem");
+    searchValue4DataItem = $.cookie("searchValue4DataItem");
+    filterKey4DataItem = document.getElementById("filterKey4DataItem");
+    filterKey4DataItem.innerText = "过滤：" + searchKey4DataItem + "=" + searchValue4DataItem;
+}
+
+/*
 * 搜索某一关键字的记录
 * */
 function search4DataItem() {
@@ -56,6 +85,7 @@ function search4DataItem() {
 
     if (searchValue4DataItem) {
         filterKey4DataItem.innerText = "过滤：" + searchKey4DataItem + "=" + searchValue4DataItem;
+        saveSearchOptions();
         location.reload();
     }
     /*
@@ -95,15 +125,18 @@ function prepareImportDataItemA(id) {
  * 统计记录总数
  * */
 function countDataItemA() {
-    //console.info("开始统计...")
+    readSearchOptions();
+    console.info("开始统计..." + searchKey4DataItem + "=" + searchValue4DataItem)
     var total;
     if (!searchValue4DataItem) {
+        console.info("正常统计...")
         total = ajaxCalculate("operation4DataItemA/countDataItemA");
     } else {
-        var total = ajaxCalculate("operation4DataItemA/countDataItemA4SataKey/?dataKey="
+        console.info("筛选统计...")
+        var total = ajaxCalculate("operation4DataItemA/countDataItemA4DataKey/?dataKey="
             + searchKey4DataItem + "&searchValue=" + searchValue4DataItem);
     }
-    //console.info("正在听统计结果：" + total);
+    console.info("DataItemA统计结果：" + total);
     return total;
 }
 
@@ -112,12 +145,16 @@ function countDataItemA() {
 * */
 function listDataItemA(pageNumber, pageSize) {
     //console.info("列表显示对象：");
+    readSearchOptions();
     if (!searchValue4DataItem) {
+        console.info("正常列表...");
         ajaxRun("operation4DataItemA/listDataItemA" + getParams(pageNumber, pageSize), 0, "listDataItemADiv");
     } else {
-        ajaxRun("operation4DataItemA/searchDataItemA?dataKey="
-            + searchKey4DataItem + "&searchValue=" + searchValue4DataItem
-            + getParams(pageNumber, pageSize),
+        console.info("搜索结果...");
+        ajaxRun("operation4DataItemA/searchDataItemA"
+            + getParams(pageNumber, pageSize)
+            + "&dataKey=" + searchKey4DataItem
+            + "&searchValue=" + searchValue4DataItem,
             0, "listDataItemADiv");
     }
 }

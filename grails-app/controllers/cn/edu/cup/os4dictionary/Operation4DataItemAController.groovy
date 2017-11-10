@@ -17,14 +17,15 @@ class Operation4DataItemAController {
     /*
     * 统计特定的dataItem
     * */
-    def countDataItemA4SataKey() {
+    def countDataItemA4DataKey() {
         def dataKey = DataKeyA.get(Integer.parseInt(params.dataKey))
         def dataValue = params.searchValue
         def count = DataItemA.countByDataKeyAAndDataValue(dataKey, dataValue)
+        def result = [count: count]
         if (request.xhr) {
-            render count as JSON
+            render result as JSON
         } else {
-            return count
+            result
         }
     }
 
@@ -33,9 +34,10 @@ class Operation4DataItemAController {
     * */
 
     def searchDataItemA() {
+        println("搜索...${params}")
         def dataKey = DataKeyA.get(Integer.parseInt(params.dataKey))
         def dataValue = params.searchValue
-        def items = DataItemA.findAllByDataKeyAAndDataValue(dataKey, dataValue)
+        def items = DataItemA.findAllByDataKeyAAndDataValue(dataKey, dataValue, params)
         def dataItemAList = []
         items.each { e ->
             dataItemAList.add(e.upDataItem)
@@ -65,10 +67,12 @@ class Operation4DataItemAController {
     def countDataItemA() {
         //def count = DataItemA.count()    //这是必须调整的
         def count = DataItemA.countByUpDataItemIsNull()
-        //println("统计结果：${count}")
+        println("正常统计结果：${count}")
         if (session.currentDataKeyA) {
             count = DataItemA.countByDataKeyAAndUpDataItemIsNull(session.currentDataKey)
         }
+
+        println("正常统计结果-${session.currentDataKey}--：${count}")
         def result = [count: count]
         if (request.xhr) {
             render result as JSON
