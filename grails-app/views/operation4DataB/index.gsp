@@ -27,13 +27,17 @@
     <title>${entityName}维护</title>
     <asset:javascript src="cn/edu/cup/dictionary/${entityName}.js"/>
     <asset:javascript src="cn/edu/cup/dictionary/DataDictionaryB.js"/>
-    <asset:javascript src="cn/edu/cup/dictionary/DataKeyAA.js"/>
-    <asset:javascript src="cn/edu/cup/dictionary/DataItemA.js"/>
+    <asset:javascript src="cn/edu/cup/dictionary/DataKeyAB.js"/>
+    <asset:javascript src="cn/edu/cup/dictionary/DataItemAB.js"/>
 </head>
 
 <body>
 <div class="nav">
-    <ul id="options4Data"></ul>
+    <ul id="options4Data">
+        <li>
+            <a href="javascript: clearFilter4Data()">清除</a>
+        </li>
+    </ul>
 </div>
 
 <div>

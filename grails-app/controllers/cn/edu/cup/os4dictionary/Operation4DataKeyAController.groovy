@@ -1,5 +1,6 @@
 package cn.edu.cup.os4dictionary
 
+import cn.edu.cup.dictionary.DataDictionary
 import cn.edu.cup.dictionary.DataKeyA
 import cn.edu.cup.dictionary.DataKeyAController
 import cn.edu.cup.dictionary.JsFrame
@@ -15,8 +16,41 @@ class Operation4DataKeyAController extends DataKeyAController{
 
     def treeViewService
     def commonService
-    def excelService
     def dataService
+
+    /*
+    * 过滤条件下的模型显示
+    * */
+    def listDataKeyA4FilterWithView() {
+        def dataKeyAList
+        println("listDataKeyA4FilterWithView-- ${params}")
+        params.sort = 'orderNumber'
+
+        //处理过滤条件
+        def currentDataDictionary = null
+        def currentDataKeyA
+        if (params.dataDictionary) {
+            currentDataDictionary = DataDictionary.get(params.dataDictionary)
+        } else {
+            if (params.dataKeyA) {
+                currentDataKeyA = DataKeyA.get(params.dataKeyA)
+                currentDataDictionary = currentDataKeyA.dictionary
+            }
+        }
+        if (currentDataDictionary) {
+            dataKeyAList = DataKeyA.findAllBySubDataKeysIsNotEmptyAndDictionary(currentDataDictionary, params)
+        } else {
+            dataKeyAList = DataKeyA.findAllBySubDataKeysIsNotEmpty(params)
+        }
+
+        def view = "${params.view}"
+
+        if (request.xhr) {
+            render(template: view, model: [dataKeyAList: dataKeyAList])
+        } else {
+            respond dataKeyAList
+        }
+    }
 
     /*
     * 显示数据关键字的表头

@@ -67,6 +67,17 @@ function tabAndPage4DataDictionary() {
     //------------------------------------------------------------------------------------------------------------------
 }
 
+
+/*
+* 过滤：当前数据字典
+* */
+function selectCurrentDataDictionary(id) {
+    currentFilterKey4Data = "数据字典";
+    currentFilterValue4Data = id;
+    saveFilter4Data();
+    location.reload();
+}
+
 /*
 * 维护数据字典
 * */

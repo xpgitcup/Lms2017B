@@ -23,13 +23,13 @@
                 <g:each in="${dataDictionaryList}" var="item" status="i">
                     <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                         <td>
-                            <a href="javascript: showDataDictionary(${item.id})">
+                            <a href="javascript: selectCurrentDataDictionary(${item.id})">
                                 ${item.name}
                             </a>
                         </td>
                         <td>
-                            <a href="operation4DataDictionary/selectCurrentDataDictionary/${item.id}">
-                                选择
+                            <a href="javascript: selectCurrentDataDictionary(${item.id})">
+                                详细信息->
                             </a>
                         </td>
                         <td>${item.datakeys?.size()}</td>
