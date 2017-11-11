@@ -52,6 +52,20 @@ class Operation4DataDictionaryController extends DataDictionaryController {
     * DataDictionary
     * */
 
+    def listDataDictionaryWithView() {
+        println("${params}")
+        def dataDictionaryList = DataDictionary.list(params)
+        def templateFile = 'listDataDictionary'
+        if (params.view) {
+            templateFile = "${params.view}"
+        }
+        if (request.xhr) {
+            render(template: templateFile, model: [dataDictionaryList: dataDictionaryList])
+        } else {
+            respond dataDictionaryList
+        }
+    }
+
     def listDataDictionary() {
         def dataDictionaryList = DataDictionary.list(params)
         def templateFile = 'listDataDictionary'
