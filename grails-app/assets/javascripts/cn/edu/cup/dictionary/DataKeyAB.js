@@ -89,7 +89,10 @@ function listDataKeyA(pageNumber, pageSize) {
                 0, "listDataKeyADiv");
             break;
         default:
-            ajaxRun("operation4DataKeyA/listDataKeyA4DataModel" + getParams(pageNumber, pageSize), 0, "listDataKeyADiv");
+            ajaxRun("operation4DataKeyA/listDataKeyA4FilterWithView"
+                + getParams(pageNumber, pageSize)
+                + "&view=listDataKeyB",
+                0, "listDataKeyADiv");
     }
 }
 

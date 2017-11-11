@@ -99,7 +99,7 @@ class Operation4DataKeyAController extends DataKeyAController{
         def message = dataService.importDataFromExcelFile(dataKeyA, sf)
         flash.message = message
         println("${flash}")
-        redirect(controller: 'operation4DataA', action: 'index', model: [flush: flash])
+        redirect(controller: 'operation4DataB', action: 'index', model: [flush: flash])
     }
 
     /*

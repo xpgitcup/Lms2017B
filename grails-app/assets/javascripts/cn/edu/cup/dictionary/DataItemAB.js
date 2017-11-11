@@ -42,24 +42,11 @@ function tabAndPage4DataItemA() {
 * 搜索某一关键字的记录
 * */
 function search4DataItem() {
-    searchKey4DataItem = document.getElementById("searchKey4DataItem").value;
-    //var searchKey = searchKey4DataItem.value
-    //console.info(searchKey);
-    searchValue4DataItem = document.getElementById("searchValue4DataItem").value;
-    //var searchValue = searchValue4DataItem.value
-    //console.info(searchValue);
-
-    filterKey4DataItem = document.getElementById("filterKey4DataItem");
-
-    if (searchValue4DataItem) {
-        filterKey4DataItem.innerText = "过滤：" + searchKey4DataItem + "=" + searchValue4DataItem;
-        saveSearchOptions();
-        location.reload();
-    }
-    /*
-    paginationListDataItemADiv.pagination({total: total});
-
-    */
+    currentFilterKey4Data = "数据项";
+    currentFilterValue4Data = document.getElementById("searchKey4DataItem").value;
+    currentFilterAppendValue4Data = document.getElementById("searchValue4DataItem").value;
+    saveFilter4Data();
+    location.reload();
 }
 
 /*
@@ -95,8 +82,26 @@ function prepareImportDataItemA(id) {
 function countDataItemA() {
     console.info("开始统计...")
     var total;
-    total = ajaxCalculate("operation4DataItemA/countDataItemA");
-    console.info("DataItemA统计结果：" + total);
+    switch (currentFilterKey4Data) {
+        case "数据字典":
+            total = ajaxCalculate("operation4DataItemA/countDataItemA4Filter");
+            break;
+        case "关键字":
+            total = ajaxCalculate("operation4DataItemA/countDataItemA4Filter"
+                + "?dataKey=" + currentFilterValue4Data
+            );
+            break;
+        case "数据项":
+            total = ajaxCalculate("operation4DataItemA/countDataItemA4Filter"
+                + "?dataKey=" + currentFilterValue4Data
+                + "&dataValue=" + currentFilterAppendValue4Data
+            );
+            console.info("数据项：" + total);
+            break;
+        default:
+            total = ajaxCalculate("operation4DataItemA/countDataItemA4Filter");
+    }
+    console.info("DataItemA " + currentFilterKey4Data + total);
     return total;
 }
 
@@ -107,25 +112,36 @@ function listDataItemA(pageNumber, pageSize) {
     //console.info("列表显示对象：");
     switch (currentFilterKey4Data) {
         case "数据字典":
-            ajaxRun("operation4DataKeyA/listDataKeyA4FilterWithView"
+            console.info("过滤数据字典...");
+            ajaxRun("operation4DataItemA/listDataItemA4FilterWithView"
                 + getParams(pageNumber, pageSize)
-                + "&dataDictionary=" + currentFilterValue4Data
-                + "&view=listDataKeyB",
-                0, "listDataKeyADiv");
+                + "&view=listDataItemAB",
+                0, "listDataItemADiv");
             break;
         case "关键字":
-            ajaxRun("operation4DataKeyA/listDataKeyA4FilterWithView"
+            console.info("过滤关键字...");
+            ajaxRun("operation4DataItemA/listDataItemA4FilterWithView"
                 + getParams(pageNumber, pageSize)
-                + "&dataKeyA=" + currentFilterValue4Data
-                + "&view=listDataKeyB",
-                0, "listDataKeyADiv");
+                + "&dataKey=" + currentFilterValue4Data
+                + "&view=listDataItemAB",
+                0, "listDataItemADiv");
+            break;
+        case "数据项":
+            console.info("过滤数据项...");
+            ajaxRun("operation4DataItemA/listDataItemA4FilterWithView"
+                + getParams(pageNumber, pageSize)
+                + "&dataKey=" + currentFilterValue4Data
+                + "&dataValue=" + currentFilterAppendValue4Data
+                + "&view=listDataItemAB",
+                0, "listDataItemADiv");
             break;
         default:
-            ajaxRun("operation4DataKeyA/listDataKeyA4DataModel" + getParams(pageNumber, pageSize), 0, "listDataKeyADiv");
+            console.info("正常列表...");
+            ajaxRun("operation4DataItemA/listDataItemA4FilterWithView"
+                + getParams(pageNumber, pageSize)
+                + "&view=listDataItemAB",
+                0, "listDataItemADiv");
     }
-
-    console.info("正常列表...");
-    ajaxRun("operation4DataItemA/listDataItemA" + getParams(pageNumber, pageSize), 0, "listDataItemADiv");
 }
 
 /*

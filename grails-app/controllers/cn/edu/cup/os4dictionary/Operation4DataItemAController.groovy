@@ -15,8 +15,73 @@ class Operation4DataItemAController {
     def dataService
 
     /*
+    * 过滤条件下的统计
+    * */
+
+    def countDataItemA4Filter() {
+        println("countDataItemA4Filter: ${params}")
+        def count
+        def currentDataKeyA
+        def currentDataValue
+        if (params.dataKey) {
+            currentDataKeyA = DataKeyA.get(Integer.parseInt(params.dataKey))
+            if (params.dataValue) {
+                currentDataValue = params.dataValue
+                count = DataItemA.countByDataKeyAAndDataValue(currentDataKeyA, currentDataValue)
+                println("数据项=${count}--------------")
+            } else {
+                count = DataItemA.countByDataKeyA(currentDataKeyA)
+            }
+        } else {
+            count = 0//DataItemA.countByUpDataItemIsNull()
+        }
+        def result = [count: count]
+        if (request.xhr) {
+            render result as JSON
+        } else {
+            result
+        }
+    }
+
+    /*
+    * 过滤条件下的数据显示
+    * */
+
+    def listDataItemA4FilterWithView() {
+        println("listDataItemA4FilterWithView: ${params}")
+        def dataItemAList = []
+        def currentDataKeyA
+        def currentDataValue
+        if (params.dataKey) {
+            currentDataKeyA = DataKeyA.get(params.dataKey)
+            if (params.dataValue) {
+                currentDataValue = params.dataValue
+                def temp = DataItemA.findAllByDataKeyAAndDataValue(currentDataKeyA, currentDataValue, params)
+                temp.each { e ->
+                    dataItemAList.add(e.upDataItem)
+                }
+            } else {
+                dataItemAList = DataItemA.findAllByDataKeyAAndUpDataItemIsNull(currentDataKeyA, params)
+            }
+        } else {
+            //dataItemAList = DataItemA.findAllByUpDataItemIsNull(params)
+        }
+        // 处理视图
+        def view = "listDataItemA"
+        if (params.view) {
+            view = "${params.view}"
+        }
+        if (request.xhr) {
+            render(template: view, model: [dataItemAList: dataItemAList])
+        } else {
+            respond dataItemAList
+        }
+    }
+
+    /*
     * 统计特定的dataItem
     * */
+
     def countDataItemA4DataKey() {
         def dataKey = DataKeyA.get(Integer.parseInt(params.dataKey))
         def dataValue = params.searchValue
@@ -91,8 +156,13 @@ class Operation4DataItemAController {
         if (session.currentDataKeyA) {
             dataItemAList = DataItemA.findAllByDataKeyAAndUpDataItemIsNull(session.currentDataKeyA, params)
         }
+
+        def view = "listDataItemA"
+        if (params.view) {
+            view = "${params.view}"
+        }
         if (request.xhr) {
-            render(template: 'listDataItemA', model: [dataItemAList: dataItemAList])
+            render(template: view, model: [dataItemAList: dataItemAList])
         } else {
             respond dataItemAList
         }
