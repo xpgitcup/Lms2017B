@@ -205,6 +205,7 @@ class InitService {
             )
             m35.save(true)
             //----------------------------------------------------------------------------------------------------------
+            /*
             def m36 = new SystemMenu(
                     menuContext: "数据A维护",
                     menuAction: "operation4DataA/index",
@@ -213,6 +214,7 @@ class InitService {
                     menuOrder: 0
             )
             m36.save(true)
+            */
             //----------------------------------------------------------------------------------------------------------
             def m37 = new SystemMenu(
                     menuContext: "数据B维护",
