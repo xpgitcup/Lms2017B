@@ -7,6 +7,7 @@ enum DataKeyType {
     dataKeyDateTime,
     dataKeyEnum,
     dataKeyFile,
-    dataKeyRef
+    dataKeyRef,
+    dataKeyRefCheckBox
 }
 

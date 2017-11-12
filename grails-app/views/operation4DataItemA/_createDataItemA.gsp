@@ -152,6 +152,18 @@
                             <td>
                             </td>
                         </g:if>
+                    <!--针对多选引用类型的-->
+                        <g:if test="${subItem.dataKeyA.dataKeyType == cn.edu.cup.dictionary.DataKeyType.dataKeyRefCheckBox}">
+                            <td>
+                                <!--g:textField name="subDataItems[${i}].dataValue" id="dataValue_${i}"/-->
+                                <g:each in="${cn.edu.cup.dictionary.DataItemA.findAllByDataKeyA(cn.edu.cup.dictionary.DataKeyA.get(Integer.parseInt(subItem.dataKeyA.appendParameter)))}"
+                                        var="item" status="j">
+                                    <input type="checkbox" name="subDataItems[${i}].dataValue" value="${item.dataValue}">${item.dataValue}
+                                </g:each>
+                            </td>
+                            <td>
+                            </td>
+                        </g:if>
 
                     </tr>
                 </g:each>
