@@ -169,10 +169,14 @@ class Operation4DataItemAController {
     }
 
     /*
-    * 创建对象
+    * 创建对象--指定视图模板
     * */
 
     def createDataItemA(DataKeyA dataKeyA) {
+        def view = 'createDataItemA'
+        if (params.view) {
+            view = "${params.view}"
+        }
         def newDataItemA = new DataItemA(dataKeyA: dataKeyA)
         def newSubItems = []
         dataKeyA.realSubDataKeys().each { e ->
@@ -181,7 +185,7 @@ class Operation4DataItemAController {
         }
         newDataItemA.subDataItems = newSubItems
         if (request.xhr) {
-            render(template: 'createDataItemA', model: [dataItemA: newDataItemA])
+            render(template: view, model: [dataItemA: newDataItemA])
         } else {
             respond newDataItemA
         }
@@ -205,6 +209,17 @@ class Operation4DataItemAController {
     def saveDataItemA(DataItemA dataItemA) {
 
         println("${params}")
+
+        def nextController = 'operation4DataA'
+        def nextAction = 'index'
+
+        if (params.nextController) {
+            nextController = "${params.nextController}"
+        }
+
+        if (params.nextAction) {
+            nextAction = "${params.nextAction}"
+        }
 
         if (dataItemA == null) {
             transactionStatus.setRollbackOnly()
@@ -254,7 +269,8 @@ class Operation4DataItemAController {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'dataItemA.label', default: 'DataItemA'), dataItemA.id])
                 //redirect dataItemA
-                redirect(controller: 'operation4DataA', action: 'index')
+                //redirect(controller: 'operation4DataA', action: 'index')
+                redirect(controller: nextController, action: nextAction)
             }
             '*' { respond dataItemA, [status: CREATED] }
         }

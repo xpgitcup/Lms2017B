@@ -225,25 +225,64 @@ class InitService {
             )
             m37.save(true)
             //----------------------------------------------------------------------------------------------------------
+
             //----------------------------------------------------------------------------------------------------------
             def m4 = new SystemMenu(
-                    menuContext: "管道模拟",
+                    menuContext: "教师服务",
                     menuAction: "#",
-                    menuDescription: "管道模拟",
+                    menuDescription: "需要教师操作的功能",
                     upMenuItem: null,
-                    roleAttribute: "系统维护",
+                    roleAttribute: "教师服务",
                     menuOrder: 0
             )
             m4.save(true)
             //----------------------------------------------------------------------------------------------------------
             def m41 = new SystemMenu(
-                    menuContext: "管道",
-                    menuAction: "Operation4PipeSimulation/index",
-                    menuDescription: "管道数据维护",
+                    menuContext: "项目管理",
+                    menuAction: "Operation4Teacher/index",
+                    menuDescription: "完成项目相关的各种操作...",
                     upMenuItem: m4,
                     menuOrder: 0
             )
             m41.save(true)
+            //----------------------------------------------------------------------------------------------------------
+            def m42 = new SystemMenu(
+                    menuContext: "人员管理",
+                    menuAction: "Operation4Teacher/index4Staff",
+                    menuDescription: "完成项目相关的各种操作...",
+                    upMenuItem: m4,
+                    menuOrder: 0
+            )
+            m42.save(true)
+
+            //----------------------------------------------------------------------------------------------------------
+            def m5 = new SystemMenu(
+                    menuContext: "学生服务",
+                    menuAction: "#",
+                    menuDescription: "需要学生操作的功能",
+                    upMenuItem: null,
+                    roleAttribute: "学生服务",
+                    menuOrder: 0
+            )
+            m5.save(true)
+            //----------------------------------------------------------------------------------------------------------
+            def m51 = new SystemMenu(
+                    menuContext: "工作日志",
+                    menuAction: "Operation4Student/index",
+                    menuDescription: "录入工作日志的各种操作...",
+                    upMenuItem: m5,
+                    menuOrder: 0
+            )
+            m51.save(true)
+            //----------------------------------------------------------------------------------------------------------
+            def m52 = new SystemMenu(
+                    menuContext: "人员管理",
+                    menuAction: "Operation4Teacher/index4Staff",
+                    menuDescription: "完成项目相关的各种操作...",
+                    upMenuItem: m5,
+                    menuOrder: 0
+            )
+            m52.save(true)
         }
     }
 
@@ -251,7 +290,7 @@ class InitService {
      * 初始化用户数据
      **/
     def initSystemUsers() {
-        def roles = ["底层管理","系统维护","公共服务"]
+        def roles = ["底层管理","系统维护","公共服务","教师服务","学生服务"]
         //def json = JSON.toJSONString(roles)
         if (SystemUser.count() < 1) {
             newUser("李晓平", "3764", roles)
