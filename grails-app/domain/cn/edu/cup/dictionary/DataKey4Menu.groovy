@@ -11,6 +11,6 @@ class DataKey4Menu {
     }
 
     String toString() {
-        return "${systemMenu.menuContext}-${dataKeyA.dataTag}"
+        return "${systemMenu?.menuContext}-${dataKeyA?.dataTag}"
     }
 }
