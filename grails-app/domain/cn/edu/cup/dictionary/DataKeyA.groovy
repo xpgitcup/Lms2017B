@@ -45,6 +45,24 @@ class DataKeyA {
     }
 
     //------------------------------------------------------------------------------------------------------------------
+
+    /*
+    * 获取每个关键字的路径
+    * */
+
+    def path() {
+        def superKeys = [this]
+        def p = this
+        while (p.upDataKey) {
+            subDataKeys.add(p)
+            p = p.upDataKey
+        }
+        return subDataKeys
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+
+    //------------------------------------------------------------------------------------------------------------------
     //触发器
     def beforeInsert() {
         if (upDataKey) {
@@ -68,11 +86,12 @@ class DataKeyA {
     /*
     * 数据字段
     * */
+
     def realSubDataKeys() {
         def h = []
         def s = superKeys()
         println("上级关键字：${s}")
-        s.each {e->
+        s.each { e ->
             h.addAll(getRealSubDataKeys(e))
         }
         h.addAll(getRealSubDataKeys(this))
@@ -81,7 +100,7 @@ class DataKeyA {
 
     private getRealSubDataKeys(DataKeyA dataKeyA) {
         def h = []
-        dataKeyA.subDataKeys.each {e ->
+        dataKeyA.subDataKeys.each { e ->
             if (!e.isDataModel()) {
                 h.add(e)
             }
@@ -92,11 +111,12 @@ class DataKeyA {
     /*
     * 数据标题
     * */
+
     def heads() {
         def h = []
         def s = superKeys()
         println("上级关键字：${s}")
-        s.each {e->
+        s.each { e ->
             h.addAll(getHeads(e))
         }
         h.addAll(getHeads(this))
@@ -105,7 +125,7 @@ class DataKeyA {
 
     private getHeads(DataKeyA dataKeyA) {
         def h = []
-        dataKeyA.subDataKeys.each {e ->
+        dataKeyA.subDataKeys.each { e ->
             def c = []
             if (!e.isDataModel()) {
                 c.add(e.dataTag)

@@ -57,6 +57,12 @@
                 <g:each in="${item.subDataItems}" var="e" status="j">
                     <td>${e.dataValue}</td>
                 </g:each>
+                <td>
+                    <a href="javascript: staffManager(${item.id})">人员管理</a>
+                </td>
+                <td>
+                    <a href="javascript: processManager(${item.id})">进度查询</a>
+                </td>
             </tr>
         </g:each>
         </tbody>
