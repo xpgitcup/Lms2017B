@@ -1,8 +1,8 @@
 package cn.edu.cup.dictionary
 
-import cn.edu.cup.system.SystemMenu
+import cn.edu.cup.dictionary.DataKeyA
 
-class DataKey4Menu {
+class CommonUIA {
 
     DataKeyA dataKeyA
     Integer  dataValue
@@ -11,6 +11,7 @@ class DataKey4Menu {
 
     static constraints = {
     }
+
 
     String toString() {
         return "${dataKeyA?.dataTag}=${dataValue}"
