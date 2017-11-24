@@ -5,7 +5,6 @@ import cn.edu.cup.dictionary.DataKeyA
 class CommonUIA {
 
     DataKeyA dataKeyA
-    Integer  dataValue
     String   viewFileName
     String   jsFileName
 
@@ -14,6 +13,6 @@ class CommonUIA {
 
 
     String toString() {
-        return "${dataKeyA?.dataTag}=${dataValue}"
+        return "${dataKeyA?.dataTag}"
     }
 }

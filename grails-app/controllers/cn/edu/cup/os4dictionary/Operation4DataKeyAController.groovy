@@ -1,5 +1,6 @@
 package cn.edu.cup.os4dictionary
 
+import cn.edu.cup.dictionary.CommonUIA
 import cn.edu.cup.dictionary.DataDictionary
 import cn.edu.cup.dictionary.DataKeyA
 import cn.edu.cup.dictionary.DataKeyAController
@@ -12,15 +13,30 @@ import static org.springframework.http.HttpStatus.NO_CONTENT
 import static org.springframework.http.HttpStatus.OK
 
 @Transactional(readOnly = true)
-class Operation4DataKeyAController extends DataKeyAController{
+class Operation4DataKeyAController extends DataKeyAController {
 
     def treeViewService
     def commonService
     def dataService
 
     /*
+    * 创建通用UI
+    * */
+    @Transactional
+    def createCommonUIA(DataKeyA dataKeyA) {
+        def commonUIA = new CommonUIA(
+                dataKeyA: dataKeyA,
+                viewFileName: "user/view_${dataKeyA.id}",
+                jsFileName: "cn/edu/cup/user/js_${dataKeyA.id}"
+        )
+        commonUIA.save(true)
+        redirect(controller: 'operation4DataA', action: 'index')
+    }
+
+    /*
     * 过滤条件下的模型显示
     * */
+
     def listDataKeyA4FilterWithView() {
         def dataKeyAList
         println("listDataKeyA4FilterWithView-- ${params}")
@@ -55,6 +71,7 @@ class Operation4DataKeyAController extends DataKeyAController{
     /*
     * 显示数据关键字的表头
     * */
+
     def showHeads(DataKeyA dataKeyA) {
         def model = [heads: dataKeyA.heads()]
         //println("${dataKeyA.heads()}")
@@ -68,6 +85,7 @@ class Operation4DataKeyAController extends DataKeyAController{
     /*
     * 选择当前关键字
     * */
+
     def selectCurrentDataKeyA(DataKeyA dataKeyA) {
         println("选择${dataKeyA}")
         selectDataKeyA(dataKeyA)
@@ -87,6 +105,7 @@ class Operation4DataKeyAController extends DataKeyAController{
     /*
     * 导入数据
     * */
+
     @Transactional
     def importFromExcelFile(DataKeyA dataKeyA) {
         //selectDataKeyA(dataKeyA)      //不能操作session
@@ -105,6 +124,7 @@ class Operation4DataKeyAController extends DataKeyAController{
     /*
     * 下载模板
     * */
+
     def downloadTemplate(DataKeyA dataKeyA) {
         def path = servletContext.getRealPath("/") + "dictionary/templates"
         //def fileName = dataKeyA.createTemplate(path)
@@ -117,6 +137,7 @@ class Operation4DataKeyAController extends DataKeyAController{
     /*
     * 统计数据模型的数量
     * */
+
     def countDataKeyA4DataModel() {
         def count = 0
         if (session.currentDataDictionary) {
@@ -161,6 +182,7 @@ class Operation4DataKeyAController extends DataKeyAController{
     /*
     * 删除对象
     * */
+
     @Transactional
     def deleteDataKeyA(DataKeyA dataKeyA) {
         if (dataKeyA == null) {
@@ -169,20 +191,21 @@ class Operation4DataKeyAController extends DataKeyAController{
             return
         }
 
-        dataKeyA.delete flush:true
+        dataKeyA.delete flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'dataKeyA.label', default: 'DataKeyA'), dataKeyA.id])
-                redirect action:"index", method:"GET", controller: "operation4Dictionary"
+                redirect action: "index", method: "GET", controller: "operation4Dictionary"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
     /*
     * 创建对象
     * */
+
     def createDataKeyA(DataKeyA dataKeyA) {
         def newDataKeyA = new DataKeyA(upDataKey: dataKeyA)
         //处理所属字典
@@ -200,6 +223,7 @@ class Operation4DataKeyAController extends DataKeyAController{
     /*
     * 保存对象
     * */
+
     @Transactional
     def saveDataKeyA(DataKeyA dataKeyA) {
         if (dataKeyA == null) {
@@ -210,14 +234,14 @@ class Operation4DataKeyAController extends DataKeyAController{
 
         if (dataKeyA.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond dataKeyA.errors, view:'create'
+            respond dataKeyA.errors, view: 'create'
             //下面的都不能用，上面的也不对
             //println("有错误...")
             //flash.message = "有错了..."
             //render(template: 'createDataKeyA', model: [dataKeyA: dataKeyA])
         }
 
-        dataKeyA.save flush:true
+        dataKeyA.save flush: true
 
         request.withFormat {
             form multipartForm {
@@ -238,24 +262,25 @@ class Operation4DataKeyAController extends DataKeyAController{
 
         if (dataKeyA.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond dataKeyA.errors, view:'edit'
+            respond dataKeyA.errors, view: 'edit'
             return
         }
 
-        dataKeyA.save flush:true
+        dataKeyA.save flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'dataKeyA.label', default: 'DataKeyA'), dataKeyA.id])
                 redirect(controller: 'operation4Dictionary', action: 'index', model: [dataKeyA: dataKeyA])
             }
-            '*'{ respond dataKeyA, [status: OK] }
+            '*' { respond dataKeyA, [status: OK] }
         }
     }
 
     /*
     * 编辑对象
     * */
+
     def editDataKeyA(DataKeyA dataKeyA) {
         if (request.xhr) {
             render(template: 'editDataKeyA', model: [dataKeyA: dataKeyA])
@@ -267,6 +292,7 @@ class Operation4DataKeyAController extends DataKeyAController{
     /*
     * 统计根属性
     * */
+
     def countDataKeyA() {
         def count = DataKeyA.countByUpDataKeyIsNull()    //这是必须调整的
         if (session.currentDataDictionary) {
@@ -285,10 +311,11 @@ class Operation4DataKeyAController extends DataKeyAController{
     /*
     * 获取当前id对应的对象
     * */
+
     def getDataKeyA(DataKeyA dataKeyA) {
         def theModel = [dataKeyA: dataKeyA]
         if (request.xhr) {
-            render(template: "showDataKeyA", model:theModel)
+            render(template: "showDataKeyA", model: theModel)
         } else {
             theModel
         }
@@ -298,6 +325,7 @@ class Operation4DataKeyAController extends DataKeyAController{
     * 获取json格式的树形结构数据
     * 获取某个节点下的所有子节点
     * */
+
     def getDataKeyATree(DataKeyA dataKeyA) {
         def data = dataKeyA.subDataKeys
         params.context = "dataTag"
@@ -316,6 +344,7 @@ class Operation4DataKeyAController extends DataKeyAController{
     * 获取json格式的树形结构数据
     * 获取根节点
     * */
+
     def getTreeDataKeyA() {
         def data
         def dataDictionary
@@ -338,5 +367,5 @@ class Operation4DataKeyAController extends DataKeyAController{
         }
     }
 
-    def index() { }
+    def index() {}
 }

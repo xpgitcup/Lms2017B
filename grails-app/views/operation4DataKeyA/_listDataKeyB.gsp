@@ -22,6 +22,7 @@
     <table>
         <thead>
         <th>名称</th>
+        <th>创建UI</th>
         <th>数据量</th>
         <th>下载模板</th>
         <th>输入</th>
@@ -32,6 +33,11 @@
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                 <td>
                     <a href="javascript: selectCurrentDataKeyA(${item.id})">${item.dataTag}</a>
+                </td>
+                <td>
+                    <a>
+                        <a href="operation4DataKeyA/createCommonUIA/${item.id}">创建-${item.dataTag}-UI</a>
+                    </a>
                 </td>
                 <td>
                     ${cn.edu.cup.dictionary.DataItemA.countByDataKeyA(item)}
