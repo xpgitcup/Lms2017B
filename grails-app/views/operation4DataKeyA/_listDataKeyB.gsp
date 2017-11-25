@@ -1,4 +1,4 @@
-<%@ page import="cn.edu.cup.dictionary.DataItemA" %>
+<%@ page import="cn.edu.cup.dictionary.CommonUIA; cn.edu.cup.dictionary.DataItemA" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +36,10 @@
                 </td>
                 <td>
                     <a>
-                        <a href="operation4DataKeyA/createCommonUIA/${item.id}">创建-${item.dataTag}-UI</a>
+                        <a href="operation4DataKeyA/createCommonUIA/${item.id}">
+                            创建-${item.dataTag}-UI/已有：
+                            (${cn.edu.cup.dictionary.CommonUIA.countByDataKeyA(item)})
+                        </a>
                     </a>
                 </td>
                 <td>

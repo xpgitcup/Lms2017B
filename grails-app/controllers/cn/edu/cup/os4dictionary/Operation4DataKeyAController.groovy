@@ -30,7 +30,7 @@ class Operation4DataKeyAController extends DataKeyAController {
                 jsFileName: "cn/edu/cup/user/js_${dataKeyA.id}"
         )
         commonUIA.save(true)
-        redirect(controller: 'operation4DataA', action: 'index')
+        redirect(controller: 'operation4DataB', action: 'index')
     }
 
     /*
