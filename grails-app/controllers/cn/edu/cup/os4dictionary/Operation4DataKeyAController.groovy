@@ -26,8 +26,8 @@ class Operation4DataKeyAController extends DataKeyAController {
     def createCommonUIA(DataKeyA dataKeyA) {
         def commonUIA = new CommonUIA(
                 dataKeyA: dataKeyA,
-                viewFileName: "user/view_${dataKeyA.id}",
-                jsFileName: "cn/edu/cup/user/js_${dataKeyA.id}"
+                viewFileName: "user/view_dataKey_${dataKeyA.id}",
+                jsFileName: "cn/edu/cup/user/js_dataKey_${dataKeyA.id}"
         )
         commonUIA.save(true)
         redirect(controller: 'operation4DataB', action: 'index')
