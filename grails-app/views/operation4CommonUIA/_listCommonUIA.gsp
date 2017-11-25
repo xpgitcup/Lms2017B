@@ -15,24 +15,24 @@
     <!--f:table collection="${commonUIAList}"/-->
     <table>
         <thead>
-        <th>
-            关键字
-        </th>
-        <th>
-            视图
-        </th>
-        <th>
-            脚本
-        </th>
-        <th>
-            操作
-        </th>
+        <th>关键字</th>
+        <th>视图List</th>
+        <th>视图Edit</th>
+        <th>视图Show</th>
+        <th>脚本</th>
+        <th>操作</th>
         </thead>
         <tbody>
             <g:each in="${commonUIAList}" var="item" status="i">
                 <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-                    <td>${item.dataKeyA}</td>
-                    <td>${item.viewFileName}</td>
+                    <td>
+                        <a href="javascript: ">
+                            ${item.dataKeyA}
+                        </a>
+                    </td>
+                    <td>${item.viewList}</td>
+                    <td>${item.viewEdit}</td>
+                    <td>${item.viewShow}</td>
                     <td>${item.jsFileName}</td>
                     <td>
                         <a href="operation4CommonUIA/displayDataKeyUI/${item.id}">

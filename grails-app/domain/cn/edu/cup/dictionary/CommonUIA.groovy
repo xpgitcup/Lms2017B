@@ -5,7 +5,9 @@ import cn.edu.cup.dictionary.DataKeyA
 class CommonUIA {
 
     DataKeyA dataKeyA
-    String   viewFileName
+    String   viewList
+    String   viewEdit
+    String   viewShow
     String   jsFileName
 
     static constraints = {

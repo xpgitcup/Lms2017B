@@ -6,6 +6,25 @@ import grails.converters.JSON
 class Operation4CommonUIAController {
 
     /*
+    * 显示记录
+    * */
+
+    def show(CommonUIA commonUIA) {
+        def result = [commonUIA: commonUIA]
+        //处理视图
+        def view = "showCommonUIA"
+        if (params.view) {
+            view = "${params.view}"
+        }
+        //返回结果
+        if (request.xhr) {
+            render(template: view, model: result)
+        } else {
+            result
+        }
+    }
+
+    /*
     * 通用数据项的用户界面
     * */
 
@@ -35,6 +54,7 @@ class Operation4CommonUIAController {
     /*
     * 数据列表
     * */
+
     def list() {
         def commonUIAList = CommonUIA.list(params)
         def result = [commonUIAList: commonUIAList]

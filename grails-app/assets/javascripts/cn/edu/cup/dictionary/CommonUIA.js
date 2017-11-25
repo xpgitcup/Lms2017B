@@ -59,3 +59,10 @@ function listCommonUIA(pageNumber, pageSize) {
     //console.info("列表显示对象：");
     ajaxRun("operation4CommonUIA/list" + getParams(pageNumber, pageSize), 0, "listCommonUIADiv");
 }
+
+/*
+* 显示记录信息
+* */
+function showCommonUIA(id) {
+    ajaxRun("operation4CommonUIA/show/" + id, 0, "showCommonUIADiv");
+}
