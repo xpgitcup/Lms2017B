@@ -28,9 +28,16 @@
 
 <body>
 
-<div class="easyui-panel" id="operation4CommonUIADiv">
-    <div id="listCommonUIADiv"></div>
-    <div id="paginationListCommonUIADiv"></div>
+<div class="easyui-tabs" id="operation4CommonUIADiv">
+    <div title="数据浏览">
+        <div id="listCommonUIADiv"></div>
+        <div id="paginationListCommonUIADiv"></div>
+    </div>
+
+    <div title="数据编辑">
+        <div id="showCommonUIADiv"></div>
+        <div id="editCommonUIADiv"></div>
+    </div>
 </div>
 
 </body>

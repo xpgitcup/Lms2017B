@@ -1,5 +1,9 @@
 /*
-* 20171123
+* 20171126
+* 设置标签页
+* 分成：浏览、编辑了个标签
+*
+* 20171123---撤销---没有用
 * 1.DataKeyA 的编辑中增加生成界面选项，用于设置
 * 2.params中设置commonUIA = ??
 * 3.如果没有，提示设置即可
@@ -7,8 +11,9 @@
 *
 * */
 
-
 var operation4CommonUIADiv;
+var currentTabCommonUIADiv;
+
 var listCommonUIADiv;
 var paginationListCommonUIADiv;
 
@@ -16,6 +21,23 @@ $(function () {
 
     // 初始化如全局变量
     operation4CommonUIADiv = $("#operation4CommonUIADiv");
+    currentTabCommonUIADiv = readCookie("currentTabCommonUIADiv", "数据浏览");
+
+    //设置页面跳转函数
+    operation4CommonUIADiv.tabs({
+        onSelect: function (title, index) {
+            console.info("选择标签：" + title + "---" + index);
+            switch (title) {
+                case "数据编辑":
+                    break;
+                default:
+                    $.cookie("currentTabCommonUIADiv", title, {path: '/'});
+                    break;
+            }
+        }
+    })
+
+    //--针对CommonUIA的页面处理
     listCommonUIADiv = $("#listCommonUIADiv");
     paginationListCommonUIADiv = $("#paginationListCommonUIADiv");
 
@@ -64,5 +86,14 @@ function listCommonUIA(pageNumber, pageSize) {
 * 显示记录信息
 * */
 function showCommonUIA(id) {
+    operation4CommonUIADiv.tabs("select","数据编辑");
     ajaxRun("operation4CommonUIA/show/" + id, 0, "showCommonUIADiv");
+}
+
+/*
+* 编辑记录
+* */
+function editCommonUIA(id) {
+    operation4CommonUIADiv.tabs("select","数据编辑");
+    ajaxRun("operation4CommonUIA/edit/" + id, 0, "editCommonUIADiv");
 }

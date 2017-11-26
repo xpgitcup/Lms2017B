@@ -26,7 +26,7 @@
             <g:each in="${commonUIAList}" var="item" status="i">
                 <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
                     <td>
-                        <a href="javascript: ">
+                        <a href="javascript: showCommonUIA(${item.id})">
                             ${item.dataKeyA}
                         </a>
                     </td>

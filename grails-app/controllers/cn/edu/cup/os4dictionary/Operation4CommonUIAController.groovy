@@ -1,9 +1,55 @@
 package cn.edu.cup.os4dictionary
 
 import cn.edu.cup.dictionary.CommonUIA
+import cn.edu.cup.dictionary.CommonUIAService
 import grails.converters.JSON
+import grails.gorm.transactions.Transactional
 
 class Operation4CommonUIAController {
+
+    CommonUIAService commonUIAService
+
+    /*
+    * 编辑
+    * */
+
+    def edit(Long id) {
+        def commonUIA = commonUIAService.get(id)
+        def result = [commonUIA: commonUIA]
+        //处理视图
+        def view = "editCommonUIA"
+        if (params.view) {
+            view = params.view
+        }
+        if (request.xhr) {
+            render(template: view, model: result)
+        } else {
+            result
+        }
+    }
+
+    /*
+    * 删除
+    * */
+
+    def delete(Long id) {
+        if (id) {
+            commonUIAService.delete(id);
+        }
+
+        def action = "index"
+        def controller = params.controller
+
+        if (params.newController) {
+            controller = params.newController
+        }
+
+        if (params.newAction) {
+            action = params.newAction
+        }
+
+        redirect(controller: controller, action: action)
+    }
 
     /*
     * 显示记录
