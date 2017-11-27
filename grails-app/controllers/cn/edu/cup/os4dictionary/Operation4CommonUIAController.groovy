@@ -1,13 +1,48 @@
 package cn.edu.cup.os4dictionary
 
 import cn.edu.cup.dictionary.CommonUIA
+import cn.edu.cup.dictionary.CommonUIAController
 import cn.edu.cup.dictionary.CommonUIAService
 import grails.converters.JSON
 import grails.gorm.transactions.Transactional
+import grails.validation.ValidationException
 
-class Operation4CommonUIAController {
+import static org.springframework.http.HttpStatus.OK
+
+class Operation4CommonUIAController extends CommonUIAController{
 
     CommonUIAService commonUIAService
+
+    /*
+    * 更新
+    * */
+
+    def update(CommonUIA commonUIA) {
+        if (commonUIA == null) {
+            notFound()
+            return
+        }
+
+        try {
+            commonUIAService.save(commonUIA)
+        } catch (ValidationException e) {
+            respond commonUIA.errors, view: 'edit'
+            return
+        }
+
+        def action = "index"
+        def controller = params.controller
+
+        if (params.newController) {
+            controller = params.newController
+        }
+
+        if (params.newAction) {
+            action = params.newAction
+        }
+
+        redirect(controller: controller, action: action)
+    }
 
     /*
     * 编辑
