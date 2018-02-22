@@ -44,53 +44,25 @@ class InitService {
         }
     }
 
-
     /*
     * 初始化系统数据
     * */
-    def initSystemData(domains) {
+
+    def initSystemData(domains, webRootDir) {
         println("初始化系统数据......")
         initSystemUsers()
-        initSystemMenuItems(domains)
+        initSystemMenuItems(domains, webRootDir)
     }
 
     /*
     * 初始化系统菜单
     * */
-    def initSystemMenuItems(domains) {
+
+    def initSystemMenuItems(domains, webRootDir) {
         if (SystemMenu.count() < 1) {
-            def m0 = new SystemMenu(
-                    menuContext: "底层管理",
-                    menuAction: "#",
-                    menuDescription: "对系统的菜单结构进行底层维护",
-                    upMenuItem: null,
-                    roleAttribute: "底层管理",
-                    menuOrder: 100
-            )
-            m0.save(true)
-            //----------------------------------------------------------------------------------------------------------
-            //创建正对各个域类控制器的菜单
-            domains.sort()
-            domains.each() { e ->
-                def m01 = new SystemMenu(
-                        menuContext: "${e.name}",
-                        menuAction: "${e.name}/index",
-                        menuDescription: "对${e.name}属性进行维护",
-                        upMenuItem: m0,
-                        roleAttribute: "底层管理",
-                        menuOrder: 0
-                )
-                m01.save(true)
-            }
-            def m011 = new SystemMenu(
-                    menuContext: "系统状态",
-                    menuAction: "Operation4SystemStatus",
-                    menuDescription: "显示当前的系统状态",
-                    upMenuItem: m0,
-                    roleAttribute: "底层管理",
-                    menuOrder: 0
-            )
-            m011.save(true)
+            initDomainMenuItems(domains)
+            def userConfigFileName = "${webRootDir}/config/system_menu_config.xlsx"
+            initUserMenuItems(userConfigFileName)
             //----------------------------------------------------------------------------------------------------------
             def m1 = new SystemMenu(
                     menuContext: "系统维护",
@@ -295,11 +267,66 @@ class InitService {
         }
     }
 
+    /*
+    * 初始化用户菜单项
+    * */
+
+    private void initUserMenuItems(String userConfigFileName) {
+        def sf = new File(userConfigFileName)
+        //确保文件存在
+        if (sf.exists()) {
+            println("${userConfigFileName} ok.")
+            def workbook = org.apache.poi.ss.usermodel.Workbook.getWorkbook(sf)
+            println("get workbook.")
+        } else {
+            println("${userConfigFileName} 不存在.")
+        }
+    }
+
+    /*
+    * 初始化有关域类的基础菜单项
+    * */
+
+    private void initDomainMenuItems(domains) {
+        def m0 = new SystemMenu(
+                menuContext: "底层管理",
+                menuAction: "#",
+                menuDescription: "对系统的菜单结构进行底层维护",
+                upMenuItem: null,
+                roleAttribute: "底层管理",
+                menuOrder: 100
+        )
+        m0.save(true)
+        //----------------------------------------------------------------------------------------------------------
+        //创建正对各个域类控制器的菜单
+        domains.sort()
+        domains.each() { e ->
+            def m01 = new SystemMenu(
+                    menuContext: "${e.name}",
+                    menuAction: "${e.name}/index",
+                    menuDescription: "对${e.name}属性进行维护",
+                    upMenuItem: m0,
+                    roleAttribute: "底层管理",
+                    menuOrder: 0
+            )
+            m01.save(true)
+        }
+        def m011 = new SystemMenu(
+                menuContext: "系统状态",
+                menuAction: "Operation4SystemStatus",
+                menuDescription: "显示当前的系统状态",
+                upMenuItem: m0,
+                roleAttribute: "底层管理",
+                menuOrder: 0
+        )
+        m011.save(true)
+    }
+
     /**
      * 初始化用户数据
      **/
     def initSystemUsers() {
-        def roles = ["底层管理","系统维护","公共服务","教师服务","学生服务"]
+        def roles = ["底层管理", "系统维护", "公共服务", "教师服务", "学生服务"]
         //def json = JSON.toJSONString(roles)
         if (SystemUser.count() < 1) {
             newUser("李晓平", "3764", roles)
@@ -344,7 +371,7 @@ class InitService {
 
     def fillSampleTitle() {
         println("初始化系统标题......")
-        if (SystemTitle.count()<1) {
+        if (SystemTitle.count() < 1) {
             def systemTitle = new SystemTitle(
                     applicationTitle: "Lms2017B 实验室管理系统",
                     applicationLogo: "cuplogoA.png",
@@ -352,11 +379,11 @@ class InitService {
             )
             systemTitle.save(true)
             //----------------------------------------------------------------------------------------------------------
-            if (SystemSponser.countBySystemTitle(systemTitle)<1) {
+            if (SystemSponser.countBySystemTitle(systemTitle) < 1) {
                 newSponser(systemTitle, "中国石油大学", "cuplogoA.png")
             }
             //----------------------------------------------------------------------------------------------------------
-            if (SystemCarousel.countBySystemTitle(systemTitle)<1) {
+            if (SystemCarousel.countBySystemTitle(systemTitle) < 1) {
                 newCarousel(systemTitle, "课题组", "课题组.jpg")
                 newCarousel(systemTitle, "多相流", "多相流.png")
                 newCarousel(systemTitle, "抽油机", "u68.jpg")

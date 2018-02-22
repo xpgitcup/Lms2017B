@@ -11,8 +11,9 @@ class BootStrap {
     def init = { servletContext ->
         environments {
             development {
+                def webRootDir = servletContext.getRealPath("/")
                 def controllers = grailsApplication.controllerClasses
-                initService.initSystemData(controllers)
+                initService.initSystemData(controllers, webRootDir)
                 initService.fillSamples()
                 configureForDevelopment(servletContext);
             }
@@ -44,7 +45,7 @@ class BootStrap {
     /**
      * 发布后的初始化代码
      */
-    def configureForProduction() {
+    def configureForProduction(servletContext) {
         println "这是发布环境..."
         def webRootDir = servletContext.getRealPath("/")
         def scriptPath = "${webRootDir}scripts/system"
