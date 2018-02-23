@@ -1,6 +1,5 @@
 package cn.edu.cup.system
 
-import com.alibaba.fastjson.JSON
 import grails.core.GrailsApplication
 import grails.gorm.transactions.Transactional
 
@@ -8,6 +7,7 @@ import grails.gorm.transactions.Transactional
 class InitService {
 
     def dataSource
+    def excelPoiService
 
     //加载数据库初始化脚本
     def loadScripts(String dir) {
@@ -63,207 +63,6 @@ class InitService {
             initDomainMenuItems(domains)
             def userConfigFileName = "${webRootDir}/config/system_menu_config.xlsx"
             initUserMenuItems(userConfigFileName)
-            //----------------------------------------------------------------------------------------------------------
-            def m1 = new SystemMenu(
-                    menuContext: "系统维护",
-                    menuAction: "#",
-                    menuDescription: "对系统的菜单结构进行用户友好的维护",
-                    upMenuItem: null,
-                    roleAttribute: "系统维护",
-                    menuOrder: 0
-            )
-            m1.save(true)
-            //----------------------------------------------------------------------------------------------------------
-            def m11 = new SystemMenu(
-                    menuContext: "属性维护",
-                    menuAction: "Operation4SystemAttribute/index",
-                    menuDescription: "对系统的用户属性进行用户友好的维护",
-                    upMenuItem: m1,
-                    menuOrder: 0
-            )
-            m11.save(true)
-            //----------------------------------------------------------------------------------------------------------
-            def m12 = new SystemMenu(
-                    menuContext: "用户维护",
-                    menuAction: "Operation4SystemUser/index",
-                    menuDescription: "对系统的用户进行用户友好的维护",
-                    upMenuItem: m1,
-                    menuOrder: 0
-            )
-            m12.save(true)
-            //----------------------------------------------------------------------------------------------------------
-            def m13 = new SystemMenu(
-                    menuContext: "菜单维护",
-                    menuAction: "Operation4SystemMenu/index",
-                    menuDescription: "对系统的菜单用户进行用户友好的维护",
-                    upMenuItem: m1,
-                    menuOrder: 0
-            )
-            m13.save(true)
-            //----------------------------------------------------------------------------------------------------------
-            def m14 = new SystemMenu(
-                    menuContext: "日志维护",
-                    menuAction: "Operation4SystemLog/index",
-                    menuDescription: "对系统的日志进行用户友好的维护",
-                    upMenuItem: m1,
-                    menuOrder: 0
-            )
-            m14.save(true)
-            //----------------------------------------------------------------------------------------------------------
-            /*
-            def m15 = new SystemMenu(
-                    menuContext: "权限管理",
-                    menuAction: "Operation4SystemUser/index4Attribute",
-                    menuDescription: "对系统的日志进行用户友好的维护",
-                    upMenuItem: m1,
-                    menuOrder: 0
-            )
-            m15.save(true)
-            */
-            //----------------------------------------------------------------------------------------------------------
-            def m2 = new SystemMenu(
-                    menuContext: "公共服务",
-                    menuAction: "#",
-                    menuDescription: "对所有用户开放的功能",
-                    upMenuItem: null,
-                    roleAttribute: "公共服务",
-                    menuOrder: 0
-            )
-            m2.save(true)
-            //----------------------------------------------------------------------------------------------------------
-            def m21 = new SystemMenu(
-                    menuContext: "社区沟通",
-                    menuAction: "Operation4SystemChat/index",
-                    menuDescription: "与系统中的用户对话",
-                    upMenuItem: m2,
-                    menuOrder: 0
-            )
-            m21.save(true)
-            //----------------------------------------------------------------------------------------------------------
-            def m3 = new SystemMenu(
-                    menuContext: "基础数据",
-                    menuAction: "#",
-                    menuDescription: "维护数据字典+物理单位",
-                    upMenuItem: null,
-                    roleAttribute: "系统维护",
-                    menuOrder: 0
-            )
-            m3.save(true)
-            //----------------------------------------------------------------------------------------------------------
-            def m33 = new SystemMenu(
-                    menuContext: "单位维护",
-                    menuAction: "Operation4Physical/index",
-                    menuDescription: "物理单位维护",
-                    upMenuItem: m3,
-                    menuOrder: 0
-            )
-            m33.save(true)
-            //----------------------------------------------------------------------------------------------------------
-            def m34 = new SystemMenu(
-                    menuContext: "用户库维护",
-                    menuAction: "operation4UserLibrary/index",
-                    menuDescription: "维护用户代码库",
-                    upMenuItem: m3,
-                    menuOrder: 0
-            )
-            m34.save(true)
-            //----------------------------------------------------------------------------------------------------------
-            def m35 = new SystemMenu(
-                    menuContext: "数据字典A维护",
-                    menuAction: "operation4Dictionary/index",
-                    menuDescription: "维护数据字典（新）",
-                    upMenuItem: m3,
-                    menuOrder: 0
-            )
-            m35.save(true)
-            //----------------------------------------------------------------------------------------------------------
-            /*
-            def m36 = new SystemMenu(
-                    menuContext: "数据A维护",
-                    menuAction: "operation4DataA/index",
-                    menuDescription: "维护数据字典（新）",
-                    upMenuItem: m3,
-                    menuOrder: 0
-            )
-            m36.save(true)
-            */
-            //----------------------------------------------------------------------------------------------------------
-            def m37 = new SystemMenu(
-                    menuContext: "数据B维护",
-                    menuAction: "operation4DataB/index",
-                    menuDescription: "维护数据字典（新）",
-                    upMenuItem: m3,
-                    menuOrder: 0
-            )
-            m37.save(true)
-            //----------------------------------------------------------------------------------------------------------
-            def m38 = new SystemMenu(
-                    menuContext: "通用数据界面维护",
-                    menuAction: "operation4CommonUIA/index",
-                    menuDescription: "维护通用数据操作界面",
-                    upMenuItem: m3,
-                    menuOrder: 0
-            )
-            m38.save(true)
-            //----------------------------------------------------------------------------------------------------------
-
-            //----------------------------------------------------------------------------------------------------------
-            def m4 = new SystemMenu(
-                    menuContext: "教师服务",
-                    menuAction: "#",
-                    menuDescription: "需要教师操作的功能",
-                    upMenuItem: null,
-                    roleAttribute: "教师服务",
-                    menuOrder: 0
-            )
-            m4.save(true)
-            //----------------------------------------------------------------------------------------------------------
-            def m41 = new SystemMenu(
-                    menuContext: "项目管理",
-                    menuAction: "Operation4Teacher/index",
-                    menuDescription: "完成项目相关的各种操作...",
-                    upMenuItem: m4,
-                    menuOrder: 0
-            )
-            m41.save(true)
-            //----------------------------------------------------------------------------------------------------------
-            def m42 = new SystemMenu(
-                    menuContext: "人员管理",
-                    menuAction: "Operation4Teacher/index4Staff",
-                    menuDescription: "完成项目相关的各种操作...",
-                    upMenuItem: m4,
-                    menuOrder: 0
-            )
-            m42.save(true)
-
-            //----------------------------------------------------------------------------------------------------------
-            def m5 = new SystemMenu(
-                    menuContext: "学生服务",
-                    menuAction: "#",
-                    menuDescription: "需要学生操作的功能",
-                    upMenuItem: null,
-                    roleAttribute: "学生服务",
-                    menuOrder: 0
-            )
-            m5.save(true)
-            //----------------------------------------------------------------------------------------------------------
-            def m51 = new SystemMenu(
-                    menuContext: "工作日志",
-                    menuAction: "Operation4Student/index",
-                    menuDescription: "录入工作日志的各种操作...",
-                    upMenuItem: m5,
-                    menuOrder: 0
-            )
-            m51.save(true)
-            //----------------------------------------------------------------------------------------------------------
-            def m52 = new SystemMenu(
-                    menuContext: "人员管理",
-                    menuAction: "Operation4Teacher/index4Staff",
-                    menuDescription: "完成项目相关的各种操作...",
-                    upMenuItem: m5,
-                    menuOrder: 0
-            )
-            m52.save(true)
         }
     }
 
@@ -272,14 +71,45 @@ class InitService {
     * */
 
     private void initUserMenuItems(String userConfigFileName) {
-        def sf = new File(userConfigFileName)
-        //确保文件存在
-        if (sf.exists()) {
-            println("${userConfigFileName} ok.")
-            def workbook = org.apache.poi.ss.usermodel.Workbook.getWorkbook(sf)
-            println("get workbook.")
+        excelPoiService.openExcelFile(userConfigFileName)
+        def targetHead = excelPoiService.getSheetHeadAt(0)
+        def head = ["menu_context", "menu_description", "menu_action", "menu_order", "role_attribute", "up_menu_item_id"]
+        def dif = excelPoiService.checkHead(head, targetHead)
+        if (dif.isEmpty()) {
+            println("开始导入菜单...")
+            def data = excelPoiService.getData(0)
+            data.each { row->
+                row.each { cell->
+                    print("${cell},")
+                }
+                println()
+
+                if (SystemMenu.findByMenuContext(row[0])) {
+                    println("${row[0]}存在了.")
+                } else {
+                    def upMenuItem = null
+                    if (!row[5].equals("")) {
+                        upMenuItem = SystemMenu.findByMenuContext(row[5])
+                    }
+                    def menuItem = new SystemMenu(
+                            menuContext: row[0],
+                            menuDescription: row[1],
+                            menuAction: row[2],
+                            menuOrder: row[3],
+                            roleAttribute: row[4],
+                            upMenuItem: upMenuItem
+                    )
+                    menuItem.save(true)
+                }
+            }
         } else {
-            println("${userConfigFileName} 不存在.")
+            println("标题不对应...")
+            dif.each { e->
+                println("${e}")
+            }
+        }
+        excelPoiService.statusOfexcelFile.each { e->
+            println(e)
         }
     }
 
