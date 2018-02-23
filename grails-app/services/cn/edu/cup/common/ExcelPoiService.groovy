@@ -130,7 +130,7 @@ class ExcelPoiService {
 
         //循环--行循环
         def currentRow
-        for (int i = firstRowNum + 1; i < lastRowNum; i++) {
+        for (int i = firstRowNum + 1; i <= lastRowNum; i++) {
             currentRow = currentSheet.getRow(i)
             def dataRow = []
             for (int j = firstCellNum; j < lastCellNum; j++) {

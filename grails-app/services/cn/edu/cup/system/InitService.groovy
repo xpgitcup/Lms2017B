@@ -100,6 +100,7 @@ class InitService {
                             upMenuItem: upMenuItem
                     )
                     menuItem.save(true)
+                    println("增加：${row[0]}.")
                 }
             }
         } else {
