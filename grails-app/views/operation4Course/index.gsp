@@ -7,8 +7,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- 实现可定制的布局 -->
     <g:if test="${layout}">
         <meta name="layout" content="${layout}"/>
@@ -22,9 +22,45 @@
         </g:else>
     </g:else>
 <!-- end 实现可定制的布局 -->
-        <title>Sample title</title>
-    </head>
-    <body>
-        <h1>Sample line</h1>
-    </body>
+    <title>课程维护</title>
+
+    <g:set var="entityName" value="Course"/>
+    <asset:javascript src="cn/edu/cup/cai/${entityName}.js"/>
+
+</head>
+
+<body>
+
+<div class="nav">
+    <ul>
+        <li>
+            <a>当前课程</a>
+        </li>
+        <li>
+            <a>选择课程->编辑维护知识点/课程目标</a>
+        </li>
+    </ul>
+</div>
+
+<div class="easyui-tabs">
+    <div title="课程列表">
+        <div class="nav">
+            <ul>
+                <li>
+                    <a class="create" href="javascript: create">新增课程</a>
+                </li>
+            </ul>
+        </div>
+
+        <div id="listCourseDiv"></div>
+        <div id="paginationListCourseDiv" class="easyui-pagination"></div>
+    </div>
+
+    <div title="课程目标列表"></div>
+
+    <div title="知识点列表"></div>
+
+    <div title="编辑页面"></div>
+</div>
+</body>
 </html>
