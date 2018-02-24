@@ -12,10 +12,6 @@
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
             <f:table collection="${courseList}" />
-
-            <div class="paginationGrails">
-                <g:paginate total="${courseCount ?: 0}" />
-            </div>
         </div>
     </body>
 </html>

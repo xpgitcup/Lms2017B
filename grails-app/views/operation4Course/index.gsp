@@ -49,7 +49,7 @@
         <div class="nav">
             <ul>
                 <li>
-                    <a class="create" href="javascript: create">新增课程</a>
+                    <a class="create" href="javascript: createCourse()">新增课程</a>
                 </li>
             </ul>
         </div>
@@ -62,7 +62,9 @@
 
     <div title="知识点列表"></div>
 
-    <div title="编辑页面"></div>
+    <div title="数据编辑">
+        <div id="editCourseDiv"></div>
+    </div>
 </div>
 </body>
 </html>

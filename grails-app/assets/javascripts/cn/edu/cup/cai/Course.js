@@ -42,6 +42,15 @@ function tabAndPage4Course() {
 }
 
 /*
+ * 新建
+ * */
+function createCourse(id) {
+    operation4CourseDiv.tabs("select", "数据编辑")
+    ajaxRun("operation4Course/create", id, "editCourseDiv");
+}
+
+
+/*
 * 列表
 * */
 /*
