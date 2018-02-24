@@ -24,8 +24,10 @@
 <!-- end 实现可定制的布局 -->
     <title>课程维护</title>
 
-    <g:set var="entityName" value="Course"/>
+    <g:set var="entityName" value="Operation4Course"/>
     <asset:javascript src="cn/edu/cup/cai/${entityName}.js"/>
+    <asset:javascript src="cn/edu/cup/cai/Operation4CourseTabs.js"/>
+    <asset:javascript src="cn/edu/cup/cai/Course.js"/>
 
 </head>
 
@@ -42,7 +44,7 @@
     </ul>
 </div>
 
-<div class="easyui-tabs">
+<div id="operation4CourseDiv" class="easyui-tabs">
     <div title="课程列表">
         <div class="nav">
             <ul>
