@@ -1,40 +1,39 @@
 package cn.edu.cup.operation4Cai
 
-import cn.edu.cup.cai.Course
+import cn.edu.cup.cai.CourseObject
 import grails.validation.ValidationException
 
 import static org.springframework.http.HttpStatus.CREATED
 import static org.springframework.http.HttpStatus.NO_CONTENT
 import static org.springframework.http.HttpStatus.OK
 
-class Operation4CourseController {
+class Operation4CourseObjectController {
 
-    def courseService
-
+    def courseObjectService
     /*
     * 更新
     * */
 
-    def update(Course course) {
-        if (course == null) {
+    def update(CourseObject courseObject) {
+        if (courseObject == null) {
             notFound()
             return
         }
 
         try {
-            courseService.save(course)
+            courseObjectService.save(courseObject)
         } catch (ValidationException e) {
-            respond course.errors, view: 'edit'
+            respond courseObject.errors, view: 'edit'
             return
         }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'course.label', default: 'Course'), course.id])
-                //redirect course
-                redirect(action: "index")
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'courseObject.label', default: 'CourseObject'), courseObject.id])
+                //redirect courseObject
+                redirect(action: "index", controller: "operation4Course")
             }
-            '*' { respond course, [status: OK] }
+            '*' { respond courseObject, [status: OK] }
         }
     }
 
@@ -43,7 +42,7 @@ class Operation4CourseController {
     * */
 
     def edit(Long id) {
-        def course = courseService.get(id)
+        def courseObject = courseObjectService.get(id)
 
         def view = 'edit'
         if (params.view) {
@@ -51,9 +50,9 @@ class Operation4CourseController {
         }
 
         if (request.xhr) {
-            render(template: view, model: [course: course])
+            render(template: view, model: [courseObject: courseObject])
         } else {
-            respond course
+            respond courseObject
         }
     }
 
@@ -67,13 +66,13 @@ class Operation4CourseController {
             return
         }
 
-        courseService.delete(id)
+        courseObjectService.delete(id)
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'course.label', default: 'Course'), id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'courseObject.label', default: 'CourseObject'), id])
                 //redirect action:"index", method:"GET"
-                redirect(action: "index")
+                redirect(action: "index", controller: "operation4Course")
             }
             '*' { render status: NO_CONTENT }
         }
@@ -85,16 +84,16 @@ class Operation4CourseController {
 
     def show(Long id) {
 
-        def course = courseService.get(id)
+        def courseObject = courseObjectService.get(id)
         def view = 'show'
 
         if (params.view) {
             view = "${params.view}"
         }
         if (request.xhr) {
-            render(template: view, model: [course: course])
+            render(template: view, model: [courseObject: courseObject])
         } else {
-            respond course
+            respond courseObject
         }
     }
 
@@ -102,26 +101,26 @@ class Operation4CourseController {
     * 保存
     * */
 
-    def save(Course course) {
-        if (course == null) {
+    def save(CourseObject courseObject) {
+        if (courseObject == null) {
             notFound()
             return
         }
 
         try {
-            courseService.save(course)
+            courseObjectService.save(courseObject)
         } catch (ValidationException e) {
-            respond course.errors, view: 'create'
+            respond courseObject.errors, view: 'create'
             return
         }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'course.label', default: 'Course'), course.id])
-                //redirect course
-                redirect(action: "index")
+                flash.message = message(code: 'default.created.message', args: [message(code: 'courseObject.label', default: 'CourseObject'), courseObject.id])
+                //redirect courseObject
+                redirect(action: "index", controller: "operation4Course")
             }
-            '*' { respond course, [status: CREATED] }
+            '*' { respond courseObject, [status: CREATED] }
         }
     }
 
@@ -134,11 +133,11 @@ class Operation4CourseController {
         if (params.view) {
             view = "${params.view}"
         }
-        def course = new Course(params)
+        def courseObject = new CourseObject(params)
         if (request.xhr) {
-            render(template: view, model: [course: course])
+            render(template: view, model: [courseObject: courseObject])
         } else {
-            respond course
+            respond courseObject
         }
     }
 
@@ -147,7 +146,7 @@ class Operation4CourseController {
     * */
 
     def list() {
-        def courseList = Course.list(params)
+        def courseList = CourseObject.list(params)
 
         def view = "list"
         if (params.view) {
@@ -165,8 +164,8 @@ class Operation4CourseController {
     * */
 
     def count() {
-        return Course.count()
+        return CourseObject.count()
     }
 
-    def index() {}
+    def index() { }
 }

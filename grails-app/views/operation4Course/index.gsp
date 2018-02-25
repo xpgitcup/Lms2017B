@@ -28,6 +28,7 @@
     <asset:javascript src="cn/edu/cup/cai/${entityName}.js"/>
     <asset:javascript src="cn/edu/cup/cai/Operation4CourseTabs.js"/>
     <asset:javascript src="cn/edu/cup/cai/Course.js"/>
+    <asset:javascript src="cn/edu/cup/cai/CourseObject.js"/>
 
 </head>
 
@@ -58,12 +59,24 @@
         <div id="paginationListCourseDiv" class="easyui-pagination"></div>
     </div>
 
-    <div title="课程目标列表"></div>
+    <div title="课程目标列表">
+        <div class="nav">
+            <ul>
+                <li>
+                    <a class="create" href="javascript: createCourseObject()">新增课程目标</a>
+                </li>
+            </ul>
+        </div>
+
+        <div id="listCourseObjectDiv"></div>
+        <div id="paginationListCourseObjectDiv" class="easyui-pagination"></div>
+    </div>
 
     <div title="知识点列表"></div>
 
     <div title="数据编辑">
         <div id="editCourseDiv"></div>
+        <div id="editCourseObjectDiv"></div>
     </div>
 </div>
 </body>

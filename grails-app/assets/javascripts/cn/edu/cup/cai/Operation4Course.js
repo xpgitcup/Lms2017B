@@ -5,4 +5,6 @@ $(function() {
     firstRunOperation4Course();
 
     tabAndPage4Course();
+    tabAndPage4CourseObject();
+
 });
