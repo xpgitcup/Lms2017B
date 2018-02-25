@@ -1,6 +1,7 @@
 package cn.edu.cup.operation4Cai
 
 import cn.edu.cup.cai.CourseObject
+import grails.converters.JSON
 import grails.validation.ValidationException
 
 import static org.springframework.http.HttpStatus.CREATED
@@ -146,16 +147,16 @@ class Operation4CourseObjectController {
     * */
 
     def list() {
-        def courseList = CourseObject.list(params)
+        def courseObjectList = CourseObject.list(params)
 
         def view = "list"
         if (params.view) {
             view = "${params.view}"
         }
         if (request.xhr) {
-            render(template: view, model: [courseList: courseList])
+            render(template: view, model: [courseObjectList: courseObjectList])
         } else {
-            respond courseList
+            respond courseObjectList
         }
     }
 
@@ -164,7 +165,13 @@ class Operation4CourseObjectController {
     * */
 
     def count() {
-        return CourseObject.count()
+        def count = CourseObject.count()
+        def result = [count: count]
+        if (request.xhr) {
+            render result as JSON
+        } else {
+            result
+        }
     }
 
     def index() { }

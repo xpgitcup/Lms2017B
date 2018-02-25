@@ -25,7 +25,8 @@
                 </g:eachError>
             </ul>
             </g:hasErrors>
-            <g:form resource="${this.courseObject}" method="POST">
+            <!--g:form resource="${this.courseObject}" method="POST"-->
+            <g:form controller="operation4CourseObject" action="save">
                 <fieldset class="form">
                     <f:all bean="courseObject"/>
                 </fieldset>

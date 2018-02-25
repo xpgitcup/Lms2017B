@@ -18,7 +18,7 @@ function tabAndPage4Course() {
 
     //获取当前页
     currentPgaeCourse = readCookie("currentPgaeCourse", 1);
-    pageSizeCourse = readCookie("pageSizeCourse", 5);
+    pageSizeCourse = readCookie("pageSizeCourse", 10);
     totalCourse = countCourse();
     //console.info("记录总数：" + totalCourse);
     //readSearchOptions();

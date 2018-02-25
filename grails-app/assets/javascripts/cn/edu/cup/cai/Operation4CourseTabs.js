@@ -13,7 +13,7 @@ function firstRunOperation4Course() {
     operation4CourseDiv.tabs({
         onSelect: function (title, index) {
             console.info("选择标签：" + title + "---" + index);
-            if (title !== "编辑") {
+            if (title !== "数据编辑") {
                 $.cookie("currentTabCourseDiv", title, {path:'/'});
                 //$.cookie("currentTabCourseDiv", title);
             }
@@ -36,4 +36,9 @@ function firstRunOperation4Course() {
         }
     })
 
+    if (currentTabCourseDiv != "数据编辑") {
+        operation4CourseDiv.tabs("select", currentTabCourseDiv);
+    } else {
+        operation4CourseDiv.tabs("select", "课程列表");
+    }
 }

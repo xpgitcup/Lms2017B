@@ -18,7 +18,7 @@ function tabAndPage4CourseObject() {
 
     //获取当前页
     currentPgaeCourseObject = readCookie("currentPgaeCourseObject", 1);
-    pageSizeCourseObject = readCookie("pageSizeCourseObject", 5);
+    pageSizeCourseObject = readCookie("pageSizeCourseObject", 10);
     totalCourseObject = countCourseObject();
     //console.info("记录总数：" + totalCourseObject);
     //readSearchOptions();

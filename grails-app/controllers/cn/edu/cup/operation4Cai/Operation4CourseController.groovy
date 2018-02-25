@@ -1,6 +1,7 @@
 package cn.edu.cup.operation4Cai
 
 import cn.edu.cup.cai.Course
+import grails.converters.JSON
 import grails.validation.ValidationException
 
 import static org.springframework.http.HttpStatus.CREATED
@@ -165,7 +166,13 @@ class Operation4CourseController {
     * */
 
     def count() {
-        return Course.count()
+        count = Course.count()
+        def result = [count: count]
+        if (request.xhr) {
+            render result as JSON
+        } else {
+            result
+        }
     }
 
     def index() {}
