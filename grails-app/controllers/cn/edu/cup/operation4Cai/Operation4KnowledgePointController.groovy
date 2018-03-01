@@ -1,6 +1,6 @@
 package cn.edu.cup.operation4Cai
 
-import cn.edu.cup.cai.Course
+import cn.edu.cup.cai.KnowledgePoint
 import grails.converters.JSON
 import grails.validation.ValidationException
 
@@ -8,34 +8,34 @@ import static org.springframework.http.HttpStatus.CREATED
 import static org.springframework.http.HttpStatus.NO_CONTENT
 import static org.springframework.http.HttpStatus.OK
 
-class Operation4CourseController {
+class Operation4KnowledgePointController {
 
-    def courseService
+    def knowledgePointService
 
     /*
     * 更新
     * */
 
-    def update(Course course) {
-        if (course == null) {
+    def update(KnowledgePoint knowledgePoint) {
+        if (knowledgePoint == null) {
             notFound()
             return
         }
 
         try {
-            courseService.save(course)
+            knowledgePointService.save(knowledgePoint)
         } catch (ValidationException e) {
-            respond course.errors, view: 'edit'
+            respond knowledgePoint.errors, view: 'edit'
             return
         }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'course.label', default: 'Course'), course.id])
-                //redirect course
-                redirect(action: "index")
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'knowledgePoint.label', default: 'KnowledgePoint'), knowledgePoint.id])
+                //redirect knowledgePoint
+                redirect(action: "index", controller: "operation4Course")
             }
-            '*' { respond course, [status: OK] }
+            '*' { respond knowledgePoint, [status: OK] }
         }
     }
 
@@ -44,7 +44,7 @@ class Operation4CourseController {
     * */
 
     def edit(Long id) {
-        def course = courseService.get(id)
+        def knowledgePoint = knowledgePointService.get(id)
 
         def view = 'edit'
         if (params.view) {
@@ -52,9 +52,9 @@ class Operation4CourseController {
         }
 
         if (request.xhr) {
-            render(template: view, model: [course: course])
+            render(template: view, model: [knowledgePoint: knowledgePoint])
         } else {
-            respond course
+            respond knowledgePoint
         }
     }
 
@@ -68,13 +68,13 @@ class Operation4CourseController {
             return
         }
 
-        courseService.delete(id)
+        knowledgePointService.delete(id)
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'course.label', default: 'Course'), id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'knowledgePoint.label', default: 'KnowledgePoint'), id])
                 //redirect action:"index", method:"GET"
-                redirect(action: "index")
+                redirect(action: "index", controller: "operation4Course")
             }
             '*' { render status: NO_CONTENT }
         }
@@ -86,16 +86,16 @@ class Operation4CourseController {
 
     def show(Long id) {
 
-        def course = courseService.get(id)
+        def knowledgePoint = knowledgePointService.get(id)
         def view = 'show'
 
         if (params.view) {
             view = "${params.view}"
         }
         if (request.xhr) {
-            render(template: view, model: [course: course])
+            render(template: view, model: [knowledgePoint: knowledgePoint])
         } else {
-            respond course
+            respond knowledgePoint
         }
     }
 
@@ -103,26 +103,26 @@ class Operation4CourseController {
     * 保存
     * */
 
-    def save(Course course) {
-        if (course == null) {
+    def save(KnowledgePoint knowledgePoint) {
+        if (knowledgePoint == null) {
             notFound()
             return
         }
 
         try {
-            courseService.save(course)
+            knowledgePointService.save(knowledgePoint)
         } catch (ValidationException e) {
-            respond course.errors, view: 'create'
+            respond knowledgePoint.errors, view: 'create'
             return
         }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'course.label', default: 'Course'), course.id])
-                //redirect course
-                redirect(action: "index")
+                flash.message = message(code: 'default.created.message', args: [message(code: 'knowledgePoint.label', default: 'KnowledgePoint'), knowledgePoint.id])
+                //redirect knowledgePoint
+                redirect(action: "index", controller: "operation4Course")
             }
-            '*' { respond course, [status: CREATED] }
+            '*' { respond knowledgePoint, [status: CREATED] }
         }
     }
 
@@ -135,11 +135,11 @@ class Operation4CourseController {
         if (params.view) {
             view = "${params.view}"
         }
-        def course = new Course(params)
+        def knowledgePoint = new KnowledgePoint(params)
         if (request.xhr) {
-            render(template: view, model: [course: course])
+            render(template: view, model: [knowledgePoint: knowledgePoint])
         } else {
-            respond course
+            respond knowledgePoint
         }
     }
 
@@ -148,16 +148,16 @@ class Operation4CourseController {
     * */
 
     def list() {
-        def courseList = Course.list(params)
+        def knowledgePointList = KnowledgePoint.list(params)
 
         def view = "list"
         if (params.view) {
             view = "${params.view}"
         }
         if (request.xhr) {
-            render(template: view, model: [courseList: courseList])
+            render(template: view, model: [knowledgePointList: knowledgePointList])
         } else {
-            respond courseList
+            respond knowledgePointList
         }
     }
 
@@ -166,7 +166,7 @@ class Operation4CourseController {
     * */
 
     def count() {
-        def count = Course.count()
+        def count = KnowledgePoint.count()
         def result = [count: count]
         if (request.xhr) {
             render result as JSON

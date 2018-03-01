@@ -24,11 +24,11 @@
 <!-- end 实现可定制的布局 -->
     <title>课程维护</title>
 
-    <g:set var="entityName" value="Operation4Question"/>
+    <g:set var="entityName" value="Operation4QuestionType"/>
     <asset:javascript src="cn/edu/cup/cai/${entityName}.js"/>
-    <asset:javascript src="cn/edu/cup/cai/Operation4QuestionTabs.js"/>
+    <asset:javascript src="cn/edu/cup/cai/Operation4QuestionTypeTabs.js"/>
+    <asset:javascript src="cn/edu/cup/cai/QuestionType.js"/>
     <asset:javascript src="cn/edu/cup/cai/Question.js"/>
-    <asset:javascript src="cn/edu/cup/cai/QuestionObject.js"/>
 
 </head>
 
@@ -37,20 +37,33 @@
 <div class="nav">
     <ul>
         <li>
-            <a>当前课程</a>
+            <a>当前试题类型</a>
         </li>
         <li>
-            <a>选择课程->编辑维护知识点/课程目标</a>
+            <a>选择试题类型->编辑维护试题</a>
         </li>
     </ul>
 </div>
 
-<div id="operation4QuestionDiv" class="easyui-tabs">
-    <div title="课程列表">
+<div id="operation4QuestionTypeDiv" class="easyui-tabs">
+    <div title="试题类型列表">
         <div class="nav">
             <ul>
                 <li>
-                    <a class="create" href="javascript: createQuestion()">新增课程</a>
+                    <a class="create" href="javascript: createQuestionType()">新增试题类型</a>
+                </li>
+            </ul>
+        </div>
+
+        <div id="listQuestionTypeDiv"></div>
+        <div id="paginationListQuestionTypeDiv" class="easyui-pagination"></div>
+    </div>
+
+    <div title="试题列表">
+        <div class="nav">
+            <ul>
+                <li>
+                    <a class="create" href="javascript: createQuestion()">新增试题</a>
                 </li>
             </ul>
         </div>
@@ -59,24 +72,9 @@
         <div id="paginationListQuestionDiv" class="easyui-pagination"></div>
     </div>
 
-    <div title="课程目标列表">
-        <div class="nav">
-            <ul>
-                <li>
-                    <a class="create" href="javascript: createQuestionObject()">新增课程目标</a>
-                </li>
-            </ul>
-        </div>
-
-        <div id="listQuestionObjectDiv"></div>
-        <div id="paginationListQuestionObjectDiv" class="easyui-pagination"></div>
-    </div>
-
-    <div title="知识点列表"></div>
-
     <div title="数据编辑">
+        <div id="editQuestionTypeDiv"></div>
         <div id="editQuestionDiv"></div>
-        <div id="editQuestionObjectDiv"></div>
     </div>
 </div>
 </body>

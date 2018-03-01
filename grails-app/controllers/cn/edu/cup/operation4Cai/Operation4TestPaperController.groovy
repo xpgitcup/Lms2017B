@@ -1,6 +1,6 @@
 package cn.edu.cup.operation4Cai
 
-import cn.edu.cup.cai.Course
+import cn.edu.cup.cai.TestPaper
 import grails.converters.JSON
 import grails.validation.ValidationException
 
@@ -8,34 +8,34 @@ import static org.springframework.http.HttpStatus.CREATED
 import static org.springframework.http.HttpStatus.NO_CONTENT
 import static org.springframework.http.HttpStatus.OK
 
-class Operation4CourseController {
+class Operation4TestPaperController {
 
-    def courseService
+    def testPaperService
 
     /*
     * 更新
     * */
 
-    def update(Course course) {
-        if (course == null) {
+    def update(TestPaper testPaper) {
+        if (testPaper == null) {
             notFound()
             return
         }
 
         try {
-            courseService.save(course)
+            testPaperService.save(testPaper)
         } catch (ValidationException e) {
-            respond course.errors, view: 'edit'
+            respond testPaper.errors, view: 'edit'
             return
         }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'course.label', default: 'Course'), course.id])
-                //redirect course
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'testPaper.label', default: 'TestPaper'), testPaper.id])
+                //redirect testPaper
                 redirect(action: "index")
             }
-            '*' { respond course, [status: OK] }
+            '*' { respond testPaper, [status: OK] }
         }
     }
 
@@ -44,7 +44,7 @@ class Operation4CourseController {
     * */
 
     def edit(Long id) {
-        def course = courseService.get(id)
+        def testPaper = testPaperService.get(id)
 
         def view = 'edit'
         if (params.view) {
@@ -52,9 +52,9 @@ class Operation4CourseController {
         }
 
         if (request.xhr) {
-            render(template: view, model: [course: course])
+            render(template: view, model: [testPaper: testPaper])
         } else {
-            respond course
+            respond testPaper
         }
     }
 
@@ -68,11 +68,11 @@ class Operation4CourseController {
             return
         }
 
-        courseService.delete(id)
+        testPaperService.delete(id)
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'course.label', default: 'Course'), id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'testPaper.label', default: 'TestPaper'), id])
                 //redirect action:"index", method:"GET"
                 redirect(action: "index")
             }
@@ -86,16 +86,16 @@ class Operation4CourseController {
 
     def show(Long id) {
 
-        def course = courseService.get(id)
+        def testPaper = testPaperService.get(id)
         def view = 'show'
 
         if (params.view) {
             view = "${params.view}"
         }
         if (request.xhr) {
-            render(template: view, model: [course: course])
+            render(template: view, model: [testPaper: testPaper])
         } else {
-            respond course
+            respond testPaper
         }
     }
 
@@ -103,26 +103,26 @@ class Operation4CourseController {
     * 保存
     * */
 
-    def save(Course course) {
-        if (course == null) {
+    def save(TestPaper testPaper) {
+        if (testPaper == null) {
             notFound()
             return
         }
 
         try {
-            courseService.save(course)
+            testPaperService.save(testPaper)
         } catch (ValidationException e) {
-            respond course.errors, view: 'create'
+            respond testPaper.errors, view: 'create'
             return
         }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'course.label', default: 'Course'), course.id])
-                //redirect course
+                flash.message = message(code: 'default.created.message', args: [message(code: 'testPaper.label', default: 'TestPaper'), testPaper.id])
+                //redirect testPaper
                 redirect(action: "index")
             }
-            '*' { respond course, [status: CREATED] }
+            '*' { respond testPaper, [status: CREATED] }
         }
     }
 
@@ -135,11 +135,11 @@ class Operation4CourseController {
         if (params.view) {
             view = "${params.view}"
         }
-        def course = new Course(params)
+        def testPaper = new TestPaper(params)
         if (request.xhr) {
-            render(template: view, model: [course: course])
+            render(template: view, model: [testPaper: testPaper])
         } else {
-            respond course
+            respond testPaper
         }
     }
 
@@ -148,16 +148,16 @@ class Operation4CourseController {
     * */
 
     def list() {
-        def courseList = Course.list(params)
+        def testPaperList = TestPaper.list(params)
 
         def view = "list"
         if (params.view) {
             view = "${params.view}"
         }
         if (request.xhr) {
-            render(template: view, model: [courseList: courseList])
+            render(template: view, model: [testPaperList: testPaperList])
         } else {
-            respond courseList
+            respond testPaperList
         }
     }
 
@@ -166,7 +166,7 @@ class Operation4CourseController {
     * */
 
     def count() {
-        def count = Course.count()
+        def count = TestPaper.count()
         def result = [count: count]
         if (request.xhr) {
             render result as JSON

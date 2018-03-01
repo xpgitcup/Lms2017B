@@ -1,6 +1,6 @@
 package cn.edu.cup.operation4Cai
 
-import cn.edu.cup.cai.Course
+import cn.edu.cup.cai.QuestionType
 import grails.converters.JSON
 import grails.validation.ValidationException
 
@@ -8,34 +8,34 @@ import static org.springframework.http.HttpStatus.CREATED
 import static org.springframework.http.HttpStatus.NO_CONTENT
 import static org.springframework.http.HttpStatus.OK
 
-class Operation4CourseController {
+class Operation4QuestionTypeController {
 
-    def courseService
+    def questionTypeService
 
     /*
     * 更新
     * */
 
-    def update(Course course) {
-        if (course == null) {
+    def update(QuestionType questionType) {
+        if (questionType == null) {
             notFound()
             return
         }
 
         try {
-            courseService.save(course)
+            questionTypeService.save(questionType)
         } catch (ValidationException e) {
-            respond course.errors, view: 'edit'
+            respond questionType.errors, view: 'edit'
             return
         }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'course.label', default: 'Course'), course.id])
-                //redirect course
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'questionType.label', default: 'QuestionType'), questionType.id])
+                //redirect questionType
                 redirect(action: "index")
             }
-            '*' { respond course, [status: OK] }
+            '*' { respond questionType, [status: OK] }
         }
     }
 
@@ -44,7 +44,7 @@ class Operation4CourseController {
     * */
 
     def edit(Long id) {
-        def course = courseService.get(id)
+        def questionType = questionTypeService.get(id)
 
         def view = 'edit'
         if (params.view) {
@@ -52,9 +52,9 @@ class Operation4CourseController {
         }
 
         if (request.xhr) {
-            render(template: view, model: [course: course])
+            render(template: view, model: [questionType: questionType])
         } else {
-            respond course
+            respond questionType
         }
     }
 
@@ -68,11 +68,11 @@ class Operation4CourseController {
             return
         }
 
-        courseService.delete(id)
+        questionTypeService.delete(id)
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'course.label', default: 'Course'), id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'questionType.label', default: 'QuestionType'), id])
                 //redirect action:"index", method:"GET"
                 redirect(action: "index")
             }
@@ -86,16 +86,16 @@ class Operation4CourseController {
 
     def show(Long id) {
 
-        def course = courseService.get(id)
+        def questionType = questionTypeService.get(id)
         def view = 'show'
 
         if (params.view) {
             view = "${params.view}"
         }
         if (request.xhr) {
-            render(template: view, model: [course: course])
+            render(template: view, model: [questionType: questionType])
         } else {
-            respond course
+            respond questionType
         }
     }
 
@@ -103,26 +103,26 @@ class Operation4CourseController {
     * 保存
     * */
 
-    def save(Course course) {
-        if (course == null) {
+    def save(QuestionType questionType) {
+        if (questionType == null) {
             notFound()
             return
         }
 
         try {
-            courseService.save(course)
+            questionTypeService.save(questionType)
         } catch (ValidationException e) {
-            respond course.errors, view: 'create'
+            respond questionType.errors, view: 'create'
             return
         }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'course.label', default: 'Course'), course.id])
-                //redirect course
+                flash.message = message(code: 'default.created.message', args: [message(code: 'questionType.label', default: 'QuestionType'), questionType.id])
+                //redirect questionType
                 redirect(action: "index")
             }
-            '*' { respond course, [status: CREATED] }
+            '*' { respond questionType, [status: CREATED] }
         }
     }
 
@@ -135,11 +135,11 @@ class Operation4CourseController {
         if (params.view) {
             view = "${params.view}"
         }
-        def course = new Course(params)
+        def questionType = new QuestionType(params)
         if (request.xhr) {
-            render(template: view, model: [course: course])
+            render(template: view, model: [questionType: questionType])
         } else {
-            respond course
+            respond questionType
         }
     }
 
@@ -148,16 +148,16 @@ class Operation4CourseController {
     * */
 
     def list() {
-        def courseList = Course.list(params)
+        def questionTypeList = QuestionType.list(params)
 
         def view = "list"
         if (params.view) {
             view = "${params.view}"
         }
         if (request.xhr) {
-            render(template: view, model: [courseList: courseList])
+            render(template: view, model: [questionTypeList: questionTypeList])
         } else {
-            respond courseList
+            respond questionTypeList
         }
     }
 
@@ -166,7 +166,7 @@ class Operation4CourseController {
     * */
 
     def count() {
-        def count = Course.count()
+        def count = QuestionType.count()
         def result = [count: count]
         if (request.xhr) {
             render result as JSON

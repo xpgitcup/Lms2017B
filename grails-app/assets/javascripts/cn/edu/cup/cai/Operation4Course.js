@@ -6,5 +6,5 @@ $(function() {
 
     tabAndPage4Course();
     tabAndPage4CourseObject();
-
+    tabAndPage4KnowledgePoint();
 });
