@@ -6,5 +6,5 @@ $(function() {
 
     tabAndPage4QuestionType();
     tabAndPage4Question();
-
+    tabAndPage4QuestionDocument();
 });

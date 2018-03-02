@@ -29,6 +29,7 @@
     <asset:javascript src="cn/edu/cup/cai/Operation4QuestionTypeTabs.js"/>
     <asset:javascript src="cn/edu/cup/cai/QuestionType.js"/>
     <asset:javascript src="cn/edu/cup/cai/Question.js"/>
+    <asset:javascript src="cn/edu/cup/cai/QuestionDocument.js"/>
     <asset:javascript src="cn/edu/cup/cai/QuestionByUser.js"/>
 
 </head>
@@ -76,9 +77,23 @@
         <div id="paginationListQuestionDiv" class="easyui-pagination"></div>
     </div>
 
+    <div title="试题文档">
+        <div class="nav">
+            <ul>
+                <li>
+                    <a class="create" href="javascript: createQuestionDocument()">新增试题</a>
+                </li>
+            </ul>
+        </div>
+
+        <div id="listQuestionDocumentDiv"></div>
+        <div id="paginationListQuestionDocumentDiv" class="easyui-pagination"></div>
+    </div>
+
     <div title="数据编辑">
         <div id="editQuestionTypeDiv"></div>
         <div id="editQuestionDiv"></div>
+        <div id="editQuestionDocumentDiv"></div>
     </div>
 </div>
 </body>
