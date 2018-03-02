@@ -29,6 +29,7 @@
     <asset:javascript src="cn/edu/cup/cai/Operation4QuestionTypeTabs.js"/>
     <asset:javascript src="cn/edu/cup/cai/QuestionType.js"/>
     <asset:javascript src="cn/edu/cup/cai/Question.js"/>
+    <asset:javascript src="cn/edu/cup/cai/QuestionByUser.js"/>
 
 </head>
 
@@ -41,6 +42,9 @@
         </li>
         <li>
             <a>选择试题类型->编辑维护试题</a>
+        </li>
+        <li>
+            <a href="javascript: prepareToImportQuestion()">导入试题</a>
         </li>
     </ul>
 </div>

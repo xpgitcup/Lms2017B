@@ -3,6 +3,9 @@ package cn.edu.cup.operation4Cai
 import cn.edu.cup.cai.Question
 import grails.converters.JSON
 import grails.validation.ValidationException
+import org.apache.poi.hwpf.HWPFDocument
+import org.apache.poi.xwpf.usermodel.XWPFDocument
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor
 
 import static org.springframework.http.HttpStatus.CREATED
 import static org.springframework.http.HttpStatus.NO_CONTENT
@@ -10,7 +13,89 @@ import static org.springframework.http.HttpStatus.OK
 
 class Operation4QuestionController {
 
+    def commonService
     def questionService
+
+    /*
+    * 导入试卷
+    * */
+
+    def showQuestionFromFile() {
+        println("${params}")
+        def destDir = servletContext.getRealPath("/") + "uploads"
+        params.destDir = destDir
+        def sf = commonService.upload(params)
+        println("上传${sf}成功...")
+        def data = loadFromFile(sf)
+        redirect(controller: 'operation4QuestionType', action: 'index', model: [data: data])
+    }
+
+    /*
+    * 从文档中读入数据
+    * */
+
+    def loadFromFile(file) {
+        def data
+        def word
+        word = openWordDocument(file)
+
+        if (word.document) {
+            switch (word.type) {
+                case 'doc':
+                    def range = word.document.getRange()
+                    println("结果：")
+                    println("${range}")
+                    break;
+                case 'docx':
+                    def extractor = new XWPFWordExtractor(word.document);
+                    String doc1 = extractor.getText();
+                    println(doc1);
+                    break
+            }
+        }
+        return data
+    }
+
+    private def openWordDocument(file) {
+
+        def word = [type: '', document: null]
+        def fileName = file.name
+        def inputStream = new FileInputStream(file)
+        if (fileName.endsWith('.doc')) {
+            println("一般word文档.")
+            word.type = 'doc'
+            word.document = new HWPFDocument(inputStream)
+
+        } else {
+            if (fileName.endsWith('.docx')) {
+                println("高级word文档.")
+                word.type = 'docx'
+                word.document = new XWPFDocument(inputStream)
+            } else {
+                println("不是word文档.")
+            }
+        }
+        return word
+    }
+
+    /*
+    * 准备导入
+    * */
+
+    def prepareToImport() {
+        def course = null
+
+        def view = 'prepare2Import'
+        if (params.view) {
+            view = "${params.view}"
+        }
+
+        if (request.xhr) {
+            render(template: view, model: [course: course])
+        } else {
+            respond course
+        }
+    }
 
     /*
     * 更新

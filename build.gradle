@@ -64,8 +64,9 @@ dependencies {
 
     //------------------------------------------------------------------------------------------------------------------
     //2018.02.22 -- 尝试使用POI
-    compile 'org.apache.poi:poi:3.17'
-    compile 'org.apache.poi:poi-ooxml:3.16'
+    compile 'org.apache.poi:poi:3.17'               //main
+    compile 'org.apache.poi:poi-ooxml:3.17'         //excel, *.docx
+    compile 'org.apache.poi:poi-scratchpad:3.17'    //word *.doc
 
     //增加对Cookie的支持
     compile 'org.grails.plugins:cookie:2.0.5'
